@@ -1,9 +1,16 @@
 ---
 import '../styles/globals.css'
-import { siteConfig } from '../config/site.config'
+import { defaultLocale, type Locale } from '../config/locale'
+import { getSiteConfig } from '../config/site.config'
 import Badge from './Badge.astro'
 import Icon from './Icon.astro'
 
+interface Props {
+  locale?: Locale
+}
+
+const { locale = defaultLocale } = Astro.props
+const siteConfig = getSiteConfig(locale)
 const { hero } = siteConfig
 const titleLines = hero.title.split('\n')
 ---

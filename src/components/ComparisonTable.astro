@@ -1,10 +1,17 @@
 ---
 import '../styles/globals.css'
-import { siteConfig } from '../config/site.config'
+import { defaultLocale, type Locale } from '../config/locale'
+import { getSiteConfig } from '../config/site.config'
 import LandingSection from './LandingSection.astro'
 import SectionHeader from './SectionHeader.astro'
 import Icon from './Icon.astro'
 
+interface Props {
+  locale?: Locale
+}
+
+const { locale = defaultLocale } = Astro.props
+const siteConfig = getSiteConfig(locale)
 const { comparison } = siteConfig
 ---
 
@@ -21,7 +28,7 @@ const { comparison } = siteConfig
       <table class="ac-comparison__table">
         <thead>
           <tr>
-            <th class="ac-comparison__th ac-comparison__th--feature">核心维度</th>
+            <th class="ac-comparison__th ac-comparison__th--feature">{comparison.featureColumnLabel}</th>
             {comparison.columns.map((col) => (
               <th class:list={['ac-comparison__th', col.highlighted && 'ac-comparison__th--highlighted']}>
                 <div class="ac-comparison__col-header">

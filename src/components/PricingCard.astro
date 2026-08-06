@@ -1,5 +1,6 @@
 ---
 import '../styles/globals.css'
+import { defaultLocale, type Locale } from '../config/locale'
 import Badge from './Badge.astro'
 import PricingFeatureList from './PricingFeatureList.astro'
 import { revealStaggerTokens } from '../utils/reveal'
@@ -19,9 +20,11 @@ export interface PricingPlan {
 interface Props {
   plan: PricingPlan
   index: number
+  locale?: Locale
 }
 
-const { plan, index } = Astro.props
+const { plan, index, locale = defaultLocale } = Astro.props
+const featuredLabel = locale === 'en' ? 'Lifetime access' : '永久使用'
 ---
 
 <div
@@ -34,7 +37,7 @@ const { plan, index } = Astro.props
   {
     plan.featured && (
       <div class="ac-pricing__popular">
-        <Badge label="永久使用" variant="gradient" size="small" />
+        <Badge label={featuredLabel} variant="gradient" size="small" />
       </div>
     )
   }

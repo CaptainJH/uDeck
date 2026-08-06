@@ -1,12 +1,19 @@
 ---
 import '../styles/globals.css'
-import { siteConfig } from '../config/site.config'
+import { defaultLocale, type Locale } from '../config/locale'
+import { getSiteConfig } from '../config/site.config'
 import LandingSection from './LandingSection.astro'
 import SectionHeader from './SectionHeader.astro'
 import Card from './Card.astro'
 import Icon from './Icon.astro'
 import { revealStaggerTokens } from '../utils/reveal'
 
+interface Props {
+  locale?: Locale
+}
+
+const { locale = defaultLocale } = Astro.props
+const siteConfig = getSiteConfig(locale)
 const { features } = siteConfig
 ---
 

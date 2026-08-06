@@ -2,7 +2,8 @@
 import '../styles/globals.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
-import { siteConfig } from '../config/site.config'
+import { defaultLocale, getLocalizedPath, type Locale } from '../config/locale'
+import { getSiteConfig } from '../config/site.config'
 import { THEME_STORAGE_KEY } from '../utils/theme-storage'
 
 interface Props {
@@ -10,17 +11,32 @@ interface Props {
   description?: string
   /** Absolute or site-relative image for og:image (optional; defaults to seo.defaultOgImage) */
   ogImage?: string
+  locale?: Locale
+  localizedPage?: boolean
 }
 
 const {
-  title = `${siteConfig.brand.name} — ${siteConfig.brand.tagline}`,
-  description = siteConfig.hero.description,
+  locale = defaultLocale,
+  localizedPage = false,
+  title: titleProp,
+  description: descriptionProp,
   ogImage: ogImageProp,
 } = Astro.props
 
+const siteConfig = getSiteConfig(locale)
+const defaultTitle = `${siteConfig.brand.name} — ${siteConfig.brand.tagline}`
+const title = titleProp ?? defaultTitle
+const description = descriptionProp ?? siteConfig.hero.description
 const { brand, seo } = siteConfig
 const canonicalUrl = new URL(Astro.url.pathname, seo.siteUrl).href
 const defaultImagePath = seo.defaultOgImage ?? '/uDeck/favicon.png'
+const alternateLinks = localizedPage
+  ? [
+      { hrefLang: 'zh-CN', href: new URL(getLocalizedPath('zh', '/'), seo.siteUrl).href },
+      { hrefLang: 'en', href: new URL(getLocalizedPath('en', '/'), seo.siteUrl).href },
+      { hrefLang: 'x-default', href: new URL(getLocalizedPath('zh', '/'), seo.siteUrl).href },
+    ]
+  : []
 function absoluteUrl(pathOrUrl: string): string {
   return pathOrUrl.startsWith('http') ? pathOrUrl : new URL(pathOrUrl, seo.siteUrl).href
 }
@@ -44,6 +60,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="canonical" href={canonicalUrl} />
+    {alternateLinks.map((link) => <link rel="alternate" hreflang={link.hrefLang} href={link.href} />)}
     <link rel="icon" type="image/png" href="/uDeck/favicon.png" />
     <meta name="generator" content={Astro.generator} />
 
@@ -106,12 +123,12 @@ const jsonLd = {
   </head>
 
   <body>
-    <a class="ac-skip-link" href="#main-content">Skip to main content</a>
-    <Header />
+    <a class="ac-skip-link" href="#main-content">{siteConfig.ui.skipToContentLabel}</a>
+    <Header locale={locale} />
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>
 

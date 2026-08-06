@@ -2,10 +2,11 @@
 import '../styles/globals.css'
 interface Props {
   label?: string
+  srLabel?: string
   class?: string
 }
 
-const { label, class: className } = Astro.props
+const { label, srLabel = 'Toggle theme', class: className } = Astro.props
 ---
 
 <label class:list={['ac-theme-switch-wrapper', className]}>
@@ -36,7 +37,7 @@ const { label, class: className } = Astro.props
       <span class="ac-theme-switch-label">{label}</span>
     ) : (
       <span class="ac-theme-switch-label ac-theme-switch-label--hidden">
-        Toggle theme
+        {srLabel}
       </span>
     )
   }

@@ -1,11 +1,18 @@
 ---
 import '../styles/globals.css'
-import { siteConfig } from '../config/site.config'
+import { defaultLocale, type Locale } from '../config/locale'
+import { getSiteConfig } from '../config/site.config'
 import LandingSection from './LandingSection.astro'
 import SectionHeader from './SectionHeader.astro'
 import PricingBillingToggle from './PricingBillingToggle.astro'
 import PricingCard from './PricingCard.astro'
 
+interface Props {
+  locale?: Locale
+}
+
+const { locale = defaultLocale } = Astro.props
+const siteConfig = getSiteConfig(locale)
 const { pricing } = siteConfig
 ---
 
@@ -15,7 +22,7 @@ const { pricing } = siteConfig
   </SectionHeader>
 
   <div class="ac-pricing__grid">
-    {pricing.plans.map((plan, i) => <PricingCard plan={plan} index={i} />)}
+    {pricing.plans.map((plan, i) => <PricingCard plan={plan} index={i} locale={locale} />)}
   </div>
 </LandingSection>
 

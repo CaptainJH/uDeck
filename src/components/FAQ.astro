@@ -1,28 +1,30 @@
 ---
 import '../styles/globals.css'
-import { siteConfig } from '../config/site.config'
+import { defaultLocale, type Locale } from '../config/locale'
+import { getSiteConfig } from '../config/site.config'
 import LandingSection from './LandingSection.astro'
 import SectionHeader from './SectionHeader.astro'
 
-const { faq, footer } = siteConfig
-const contactLink = footer.columns
-  .flatMap((column) => column.links)
-  .find((link) => link.label === '联系我们')
+interface Props {
+  locale?: Locale
+}
+
+const { locale = defaultLocale } = Astro.props
+const siteConfig = getSiteConfig(locale)
+const { faq } = siteConfig
 ---
 
 <LandingSection id="faq" class="section">
   <SectionHeader badge={faq.badge} title={faq.title}>
     <Fragment slot="description">
       {
-        contactLink && (
-          <>
-            找不到答案？欢迎
-            <a class="faq-contact-link" href={contactLink.href} target={contactLink.target} rel={contactLink.rel}
-              >联系我们</a
-            >
-            。
-          </>
-        )
+        <>
+          {faq.contactLead}
+          <a class="faq-contact-link" href={faq.contactHref}
+            >{faq.contactLinkLabel}</a
+          >
+          {faq.contactTail}
+        </>
       }
     </Fragment>
   </SectionHeader>

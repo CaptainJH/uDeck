@@ -1,20 +1,44 @@
 ---
 import '../styles/globals.css'
-import { siteConfig } from '../config/site.config'
+import {
+  defaultLocale,
+  getLocalizedPath,
+  getLocalizedSectionHref,
+  localeOptions,
+  type Locale,
+} from '../config/locale'
+import { getSiteConfig } from '../config/site.config'
 import Icon from './Icon.astro'
 import ThemeSwitch from './ThemeSwitch.astro'
 
-const { brand, nav } = siteConfig
+interface Props {
+  locale?: Locale
+}
+
+const { locale = defaultLocale } = Astro.props
+const siteConfig = getSiteConfig(locale)
+const { brand, nav, ui } = siteConfig
+const homeHref = getLocalizedPath(locale, '/')
+const navLinks = nav.links.map((link) => ({
+  ...link,
+  href: getLocalizedSectionHref(locale, link.href),
+}))
+const ctaHref = getLocalizedSectionHref(locale, nav.cta.href)
+const localeLinks = localeOptions.map((option) => ({
+  ...option,
+  href: getLocalizedPath(option.code, '/'),
+}))
+const currentLocale = localeLinks.find((link) => link.code === locale) ?? localeLinks[0]
 ---
 
 <header class="ac-header" data-header>
   <div class="container ac-header__inner">
-    <a href={import.meta.env.BASE_URL} class="ac-header__logo">
+    <a href={homeHref} class="ac-header__logo">
       <img src={brand.logo} alt={brand.name} class="ac-header__logo-img" />
     </a>
 
     <nav class="ac-header__nav" data-nav>
-      {nav.links.map((link) => (
+      {navLinks.map((link) => (
         <a href={link.href} class="ac-header__link">
           {link.label}
         </a>
@@ -22,14 +46,48 @@ const { brand, nav } = siteConfig
     </nav>
 
     <div class="ac-header__actions">
-      <div class="ac-header__theme">
-        <ThemeSwitch />
+      <div class="ac-header__locale" data-locale-switcher>
+        <button
+          type="button"
+          class="ac-header__locale-trigger"
+          data-locale-trigger
+          aria-label={ui.localeLabel}
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          <span class="ac-header__locale-trigger-text">{currentLocale.shortLabel}</span>
+          <Icon name="chevron_down" size={16} class="ac-header__locale-trigger-icon" />
+        </button>
+
+        <div class="ac-header__locale-menu" data-locale-menu hidden>
+          {localeLinks.map((link) => (
+            <a
+              href={link.href}
+              class:list={[
+                'ac-header__locale-option',
+                link.code === locale && 'ac-header__locale-option--active',
+              ]}
+              aria-current={link.code === locale ? 'page' : undefined}
+              hreflang={link.htmlLang}
+              lang={link.htmlLang}
+            >
+              <div class="ac-header__locale-option-copy">
+                <span class="ac-header__locale-option-label">{link.label}</span>
+                <span class="ac-header__locale-option-code">{link.code.toUpperCase()}</span>
+              </div>
+              {link.code === locale && <span class="ac-header__locale-option-check">•</span>}
+            </a>
+          ))}
+        </div>
       </div>
-      <a href={nav.cta.href} class="ac-header__cta">
+      <div class="ac-header__theme">
+        <ThemeSwitch srLabel={ui.toggleThemeLabel} />
+      </div>
+      <a href={ctaHref} class="ac-header__cta">
         {nav.cta.label}
       </a>
 
-      <button class="ac-header__toggle" data-nav-toggle aria-label="Toggle menu">
+      <button class="ac-header__toggle" data-nav-toggle aria-label={ui.toggleMenuLabel}>
         <Icon name="menu" size={24} />
       </button>
     </div>
@@ -39,16 +97,33 @@ const { brand, nav } = siteConfig
   <div class="ac-header__mobile" data-mobile-nav>
     <nav class="ac-header__mobile-nav">
       <div class="ac-header__mobile-links">
-        {nav.links.map((link) => (
+        {navLinks.map((link) => (
           <a href={link.href} class="ac-header__mobile-link">
             {link.label}
           </a>
         ))}
       </div>
-      <div class="ac-header__mobile-theme">
-        <ThemeSwitch />
+      <div class="ac-header__mobile-locale" aria-label={ui.localeLabel}>
+        <span class="ac-header__mobile-locale-title">{ui.localeLabel}</span>
+        {localeLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'ac-header__mobile-locale-link',
+              link.code === locale && 'ac-header__mobile-locale-link--active',
+            ]}
+            aria-current={link.code === locale ? 'page' : undefined}
+            hreflang={link.htmlLang}
+            lang={link.htmlLang}
+          >
+            {link.label}
+          </a>
+        ))}
       </div>
-      <a href={nav.cta.href} class="ac-header__mobile-cta">
+      <div class="ac-header__mobile-theme">
+        <ThemeSwitch srLabel={ui.toggleThemeLabel} />
+      </div>
+      <a href={ctaHref} class="ac-header__mobile-cta">
         {nav.cta.label}
       </a>
     </nav>
@@ -114,6 +189,109 @@ const { brand, nav } = siteConfig
     gap: var(--ac-spacing-4);
   }
 
+  .ac-header__locale {
+    position: relative;
+  }
+
+  .ac-header__locale-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ac-spacing-2);
+    min-width: 5.5rem;
+    padding: 0.5rem 0.875rem;
+    border: 0.0625rem solid var(--ac-border-color);
+    border-radius: var(--ac-rounded-full);
+    background-color: var(--ac-bg-subtle);
+    color: var(--ac-text);
+    font-size: var(--ac-text-xs);
+    font-weight: var(--ac-font-semibold);
+    cursor: pointer;
+    transition: var(--ac-transition-fast);
+  }
+
+  .ac-header__locale-trigger:hover,
+  .ac-header__locale-trigger[aria-expanded='true'] {
+    border-color: rgba(var(--ac-primary), 0.25);
+    box-shadow: 0 0.5rem 1.25rem rgba(var(--ac-primary), 0.12);
+  }
+
+  .ac-header__locale-trigger-text {
+    flex: 1;
+    text-align: left;
+  }
+
+  .ac-header__locale-trigger-icon {
+    color: var(--ac-text-muted);
+    transition: transform 0.2s ease;
+  }
+
+  .ac-header__locale-trigger[aria-expanded='true'] .ac-header__locale-trigger-icon {
+    transform: rotate(180deg);
+  }
+
+  .ac-header__locale-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 11rem;
+    padding: var(--ac-spacing-2);
+    border: 0.0625rem solid var(--ac-border-color);
+    border-radius: var(--ac-rounded-2xl);
+    background-color: var(--ac-card-bg);
+    box-shadow: var(--ac-shadow-xl);
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .ac-header__locale-menu[hidden] {
+    display: none;
+  }
+
+  .ac-header__locale-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ac-spacing-3);
+    padding: 0.75rem 0.875rem;
+    border-radius: var(--ac-rounded-xl);
+    color: var(--ac-text);
+    text-decoration: none;
+    transition: var(--ac-transition-fast);
+  }
+
+  .ac-header__locale-option:hover {
+    background-color: var(--ac-bg-subtle);
+  }
+
+  .ac-header__locale-option--active {
+    background: rgba(var(--ac-primary), 0.08);
+  }
+
+  .ac-header__locale-option-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .ac-header__locale-option-label {
+    font-size: var(--ac-text-sm);
+    font-weight: var(--ac-font-semibold);
+  }
+
+  .ac-header__locale-option-code {
+    font-size: var(--ac-text-xs);
+    color: var(--ac-text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .ac-header__locale-option-check {
+    color: rgb(var(--ac-primary));
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
   .ac-header__theme {
     display: flex;
     align-items: center;
@@ -123,6 +301,41 @@ const { brand, nav } = siteConfig
     display: flex;
     justify-content: center;
     padding-block: var(--ac-spacing-2);
+  }
+
+  .ac-header__mobile-locale {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-2);
+  }
+
+  .ac-header__mobile-locale-title {
+    font-size: var(--ac-text-xs);
+    font-weight: var(--ac-font-semibold);
+    color: var(--ac-text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ac-header__mobile-locale-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--ac-spacing-2-5) var(--ac-spacing-4);
+    border-radius: var(--ac-rounded-xl);
+    border: 0.0625rem solid var(--ac-border-color);
+    background-color: var(--ac-bg-subtle);
+    color: var(--ac-text);
+    font-size: var(--ac-text-sm);
+    font-weight: var(--ac-font-semibold);
+    text-decoration: none;
+    transition: var(--ac-transition-fast);
+  }
+
+  .ac-header__mobile-locale-link--active {
+    color: rgb(var(--ac-white));
+    background: var(--ac-gradient-primary);
+    border-color: transparent;
   }
 
   .ac-header__cta {
@@ -216,6 +429,10 @@ const { brand, nav } = siteConfig
       display: none;
     }
 
+    .ac-header__locale {
+      display: none;
+    }
+
     .ac-header__cta {
       display: none;
     }
@@ -230,6 +447,15 @@ const { brand, nav } = siteConfig
   const header = document.querySelector('[data-header]') as HTMLElement
   const toggle = document.querySelector('[data-nav-toggle]') as HTMLElement
   const mobileNav = document.querySelector('[data-mobile-nav]') as HTMLElement
+  const localeSwitcher = document.querySelector('[data-locale-switcher]') as HTMLElement
+  const localeTrigger = localeSwitcher?.querySelector('[data-locale-trigger]') as HTMLButtonElement
+  const localeMenu = localeSwitcher?.querySelector('[data-locale-menu]') as HTMLElement
+
+  function setLocaleMenu(open: boolean) {
+    if (!localeTrigger || !localeMenu) return
+    localeTrigger.setAttribute('aria-expanded', open.toString())
+    localeMenu.hidden = !open
+  }
 
   // Scroll effect
   window.addEventListener('scroll', () => {
@@ -239,6 +465,24 @@ const { brand, nav } = siteConfig
   // Mobile toggle
   toggle?.addEventListener('click', () => {
     mobileNav.classList.toggle('ac-header__mobile--open')
+  })
+
+  localeTrigger?.addEventListener('click', (event) => {
+    event.stopPropagation()
+    const isOpen = localeTrigger.getAttribute('aria-expanded') === 'true'
+    setLocaleMenu(!isOpen)
+  })
+
+  document.addEventListener('click', (event) => {
+    if (!localeSwitcher?.contains(event.target as Node)) {
+      setLocaleMenu(false)
+    }
+  })
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setLocaleMenu(false)
+    }
   })
 
   // Close on link click

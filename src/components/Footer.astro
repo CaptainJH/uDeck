@@ -1,9 +1,24 @@
 ---
 import '../styles/globals.css'
-import { siteConfig } from '../config/site.config'
+import { defaultLocale, getLocalizedPath, getLocalizedSectionHref, type Locale } from '../config/locale'
+import { getSiteConfig } from '../config/site.config'
 
+interface Props {
+  locale?: Locale
+}
+
+const { locale = defaultLocale } = Astro.props
+const siteConfig = getSiteConfig(locale)
 const { brand, footer } = siteConfig
 const year = new Date().getFullYear()
+const homeHref = getLocalizedPath(locale, '/')
+const footerColumns = footer.columns.map((column) => ({
+  ...column,
+  links: column.links.map((link) => ({
+    ...link,
+    href: getLocalizedSectionHref(locale, link.href),
+  })),
+}))
 ---
 
 <footer class="ac-footer">
@@ -11,7 +26,7 @@ const year = new Date().getFullYear()
     <div class="ac-footer__grid">
       <!-- Brand column -->
       <div class="ac-footer__brand">
-        <a href={import.meta.env.BASE_URL} class="ac-footer__logo">
+        <a href={homeHref} class="ac-footer__logo">
           <img src={brand.logo} alt={brand.name} class="ac-footer__logo-img" />
         </a>
         <div class="ac-footer__brand-lower">
@@ -20,7 +35,7 @@ const year = new Date().getFullYear()
       </div>
 
       <!-- Link columns -->
-      {footer.columns.map((col) => (
+      {footerColumns.map((col) => (
         <div class="ac-footer__column">
           <div class="ac-footer__column-inner">
             <h4 class="ac-footer__column-title">{col.title}</h4>
@@ -39,7 +54,7 @@ const year = new Date().getFullYear()
     </div>
 
     <div class="ac-footer__bottom">
-      <p>&copy; {year} {brand.name}. All rights reserved.</p>
+      <p>&copy; {year} {brand.name}. {footer.copyright}</p>
     </div>
   </div>
 </footer>
