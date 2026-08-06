@@ -11,7 +11,7 @@ const { pricing } = siteConfig
 
 <LandingSection id="pricing" class="section ac-section-band--subtle">
   <SectionHeader badge={pricing.badge} title={pricing.title} description={pricing.description}>
-    <PricingBillingToggle />
+    {pricing.toggle && <PricingBillingToggle />}
   </SectionHeader>
 
   <div class="ac-pricing__grid">
@@ -22,9 +22,11 @@ const { pricing } = siteConfig
 <style>
   .ac-pricing__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--ac-spacing-6);
     align-items: start;
+    max-width: 50rem;
+    margin: 0 auto;
   }
 
   @media (max-width: 48rem) {
@@ -34,36 +36,4 @@ const { pricing } = siteConfig
       align-self: center;
     }
   }
-
-  @media (min-width: 48.0625rem) and (max-width: 64rem) {
-    .ac-pricing__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
 </style>
-
-<script>
-  const toggle = document.querySelector<HTMLInputElement>('[data-pricing-toggle]')
-  const amounts = document.querySelectorAll('.ac-pricing__amount')
-  const labels = document.querySelectorAll('[data-toggle-label]')
-
-  const applyBilling = (isYearly: boolean) => {
-    amounts.forEach((el) => {
-      const monthly = el.getAttribute('data-monthly')
-      const yearly = el.getAttribute('data-yearly')
-      el.textContent = isYearly ? yearly : monthly
-    })
-
-    labels.forEach((label) => {
-      const isMonthly = label.getAttribute('data-toggle-label') === 'monthly'
-      label.classList.toggle(
-        'ac-pricing__toggle-label--active',
-        isYearly ? !isMonthly : isMonthly
-      )
-    })
-  }
-
-  toggle?.addEventListener('change', () => {
-    applyBilling(toggle.checked)
-  })
-</script>

@@ -20,7 +20,7 @@ const {
 
 const { brand, seo } = siteConfig
 const canonicalUrl = new URL(Astro.url.pathname, seo.siteUrl).href
-const defaultImagePath = seo.defaultOgImage ?? '/favicon.svg'
+const defaultImagePath = seo.defaultOgImage ?? '/uDeck/favicon.png'
 function absoluteUrl(pathOrUrl: string): string {
   return pathOrUrl.startsWith('http') ? pathOrUrl : new URL(pathOrUrl, seo.siteUrl).href
 }
@@ -44,7 +44,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/uDeck/favicon.png" />
     <meta name="generator" content={Astro.generator} />
 
     <meta property="og:title" content={title} />

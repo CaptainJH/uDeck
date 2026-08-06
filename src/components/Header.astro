@@ -10,7 +10,7 @@ const { brand, nav } = siteConfig
 <header class="ac-header" data-header>
   <div class="container ac-header__inner">
     <a href="/" class="ac-header__logo">
-      <span class="gradient-text">{brand.name}</span>
+      <img src={brand.logo} alt={brand.name} class="ac-header__logo-img" />
     </a>
 
     <nav class="ac-header__nav" data-nav>
@@ -80,10 +80,15 @@ const { brand, nav } = siteConfig
   }
 
   .ac-header__logo {
-    font-size: var(--ac-text-xl);
-    font-weight: var(--ac-font-extrabold);
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
-    letter-spacing: -0.02em;
+  }
+
+  .ac-header__logo-img {
+    height: 2.5rem;
+    width: auto;
+    border-radius: var(--ac-rounded-lg);
   }
 
   .ac-header__nav {

@@ -8,32 +8,36 @@
  */
 
 import { siteConfigSchema } from './site.config.schema'
+import { pricingConfig } from './pricing.config'
+
+const defaultLang = 'zh'
 
 const siteConfigRaw = {
   /** ---- Brand ---- */
   brand: {
-    name: 'Astrolify',
-    tagline: 'Ship your SaaS faster',
-    logo: '/logo.svg',
+    name: 'uDeck',
+    tagline: '把 iPhone 变成 Mac 的高速随身盘',
+    logo: '/uDeck/appstore.png',
   },
 
   /** ---- Navigation ---- */
   nav: {
     links: [
-      { label: 'Features', href: '#features' },
-      { label: 'Integrations', href: '#integrations' },
-      { label: 'Pricing', href: '#pricing' },
-      { label: 'Blog', href: '#blog' },
+      { label: '功能', href: '#features' },
+      { label: '三步使用', href: '#how-it-works' },
+      { label: '对比', href: '#comparison' },
+      { label: '价格', href: '#pricing' },
+      { label: 'FAQ', href: '#faq' },
     ],
-    cta: { label: 'Get Started', href: '#pricing' },
+    cta: { label: '免费下载', href: '#pricing' },
   },
 
   /** ---- SEO & language (@astrojs/sitemap uses seo.siteUrl) ---- */
   seo: {
     siteUrl: 'https://captainjh.github.io/uDeck',
-    defaultOgImage: '/favicon.svg',
+    defaultOgImage: '/uDeck/appstore.png',
     twitterHandle: undefined as string | undefined,
-    lang: 'en',
+    lang: 'zh-CN',
   },
 
   /**
@@ -45,596 +49,213 @@ const siteConfigRaw = {
     src: 'https://cloud.umami.is/script.js' as string,
   },
 
-  /**
-   * ---- Forms ----
-   * Demo: leave actions empty and Netlify flags false — components show a fake success state.
-   * Real POST: set contactAction / newsletterAction to your endpoint.
-   * Netlify Forms: set contactNetlify / newsletterNetlify to true and deploy on Netlify.
-   */
-  forms: {
-    contactAction: '',
-    newsletterAction: '',
-    contactNetlify: false,
-    newsletterNetlify: false,
-  },
-
   /** ---- Hero Section ---- */
   hero: {
-    badge: 'New: v2.0 is here',
-    title: 'Build your next SaaS\nin record time',
+    badge: 'iPhone ↔ Mac 高速随身盘',
+    title: '把 iPhone，变成 Mac 随手可及的高速随身盘',
     description:
-      'Stop wasting months building from scratch. Our platform gives you everything you need to launch, grow, and scale your SaaS business.',
-    primaryCta: { label: 'Start Free Trial', href: '#pricing' },
-    secondaryCta: { label: 'See Demo', href: '#features' },
+      '无需云端中转，也不必受限于无线网速。插上数据线，在 iPhone 上轻点 Mount，你的 iPhone 即可作为原生虚拟磁盘挂载至 Mac Finder。',
+    primaryCta: { label: '免费下载', href: '#pricing' },
+    secondaryCta: { label: '了解更多', href: '#features' },
     stats: [
-      { value: '10K+', label: 'Active users' },
-      { value: '99.9%', label: 'Uptime' },
-      { value: '4.9/5', label: 'Rating' },
+      { value: 'USB', label: '极速直连' },
+      { value: '100%', label: '本地隐私' },
+      { value: '0', label: '订阅费用' },
     ],
   },
 
-  /** ---- Stats Section (optional) ---- */
-  stats: {
-    items: [
-      { value: '10K+', label: 'Active Users' },
-      { value: '99.9%', label: 'Uptime SLA' },
-      { value: '$50M+', label: 'Revenue Processed' },
-      { value: '150+', label: 'Countries' },
-    ],
-  },
-
-  /** ---- LogoCloud Section (optional) ---- */
-  logocloud: {
-    title: 'Trusted by leading companies worldwide',
-    logos: [
-      { name: 'Stripe',  id: 'stripe'  },
-      { name: 'GitHub',  id: 'github'  },
-      { name: 'Slack',   id: 'slack'   },
-      { name: 'Figma',   id: 'figma'   },
-      { name: 'Vercel',  id: 'vercel'  },
-      { name: 'Notion',  id: 'notion'  },
-      { name: 'Linear',  id: 'linear'  },
-      { name: 'Zapier',  id: 'zapier'  },
-    ],
-  },
-
-  /** ---- How It Works Section (optional) ---- */
+  /** ---- How It Works Section ---- */
   howItWorks: {
-    badge: 'Process',
-    title: 'Get started in 3 simple steps',
-    description: 'Launch your product faster than ever',
+    badge: '使用',
+    title: '极简三步，即刻开启',
+    description: '无需改变习惯，像 U 盘一样使用你的 iPhone',
     steps: [
       {
         number: 1,
-        title: 'Sign Up',
-        description: 'Create your account in seconds and start building your SaaS product with our powerful tools.',
+        title: '连接与启动',
+        description: '使用 USB 数据线连接 iPhone 与 Mac，启动 uDeck。',
       },
       {
         number: 2,
-        title: 'Build & Configure',
-        description: 'Use our intuitive builder to create features, set up integrations, and customize your workspace.',
+        title: '一键 Mount',
+        description: '在 iPhone 端轻点 Mount，即刻建立高速数据通道。',
       },
       {
         number: 3,
-        title: 'Launch & Scale',
-        description: 'Deploy your product live and start growing. We handle the infrastructure so you focus on users.',
+        title: 'Finder 随心掌控',
+        description:
+          '点击 Open in Finder，像使用 U 盘一样开始工作。完成后点击 Unmount，即可安全断开。',
       },
     ],
   },
 
   /** ---- Features Section ---- */
   features: {
-    badge: 'Features',
-    title: 'Everything you need to succeed',
-    description: 'Powerful tools designed to help you build, launch, and scale.',
+    badge: '功能',
+    title: '为高效而生，原生且纯粹',
+    description: '不绕过系统，不改变习惯，只为 USB 文件桥接做到极致。',
     items: [
       {
-        icon: 'rocket',
-        title: 'Lightning Fast',
+        icon: 'folder',
+        title: 'Finder 原生无缝融合',
         description:
-          'Optimized for speed with edge computing and smart caching. Your users will feel the difference.',
+          '挂载后，uDeck 直达 Finder 侧边栏。批量拖拽、重命名、直接用 Mac 软件打开编辑，一切自然流畅。',
       },
       {
-        icon: 'shield',
-        title: 'Enterprise Security',
+        icon: 'bolt',
+        title: 'USB 极速通道，离线即用',
         description:
-          'Bank-grade encryption, SOC2 compliance, and advanced threat protection built-in.',
+          '不再受 Wi-Fi 信号波动困扰，不消耗手机流量。即便在无网的飞机上、现场拍摄或出差途中，传输依然稳如磐石。',
       },
       {
-        icon: 'chart',
-        title: 'Advanced Analytics',
+        icon: 'shield-good',
+        title: '100% 留存本地，隐私无忧',
         description:
-          'Real-time dashboards, custom reports, and AI-powered insights to drive growth.',
+          '数据只在手机与 Mac 之间直连流动。没有云端上传，没有账号依赖，敏感文件与隐私内容完全由你掌控。',
       },
       {
-        icon: 'puzzle',
-        title: 'Easy Integrations',
+        icon: 'link',
+        title: '双端协同，传输状态一目了然',
         description:
-          'Connect with 100+ tools you already use. Zapier, Slack, Stripe, and more.',
-      },
-      {
-        icon: 'users',
-        title: 'Team Collaboration',
-        description:
-          'Built-in roles, permissions, and real-time collaboration for your entire team.',
-      },
-      {
-        icon: 'headset',
-        title: '24/7 Support',
-        description:
-          'Our expert team is always available via chat, email, or phone whenever you need help.',
+          '在 iPhone 上轻松管理应用内文件；挂载期间，实时掌控传输速率、电量与存储状态。Mac 端随时一键唤起，掌控全局。',
       },
     ],
   },
 
   /** ---- Pricing Section ---- */
-  pricing: {
-    badge: 'Pricing',
-    title: 'Simple, transparent pricing',
-    description: 'No hidden fees. No surprises. Cancel anytime.',
-    plans: [
-      {
-        name: 'Starter',
-        description: 'Perfect for side projects',
-        monthlyPrice: 19,
-        yearlyPrice: 190,
-        featured: false,
-        features: [
-          '5 Projects',
-          '10GB Storage',
-          'Basic Analytics',
-          'Email Support',
-          'API Access',
-        ],
-        cta: { label: 'Start Free', href: '#' },
-      },
-      {
-        name: 'Pro',
-        description: 'For growing businesses',
-        monthlyPrice: 49,
-        yearlyPrice: 490,
-        featured: true,
-        features: [
-          'Unlimited Projects',
-          '100GB Storage',
-          'Advanced Analytics',
-          'Priority Support',
-          'API Access',
-          'Custom Integrations',
-          'Team Collaboration',
-        ],
-        cta: { label: 'Start Free Trial', href: '#' },
-      },
-      {
-        name: 'Enterprise',
-        description: 'For large organizations',
-        monthlyPrice: 149,
-        yearlyPrice: 1490,
-        featured: false,
-        features: [
-          'Everything in Pro',
-          'Unlimited Storage',
-          'Custom Analytics',
-          'Dedicated Support',
-          'SLA Agreement',
-          'SSO & SAML',
-          'On-premise Option',
-        ],
-        cta: { label: 'Contact Sales', href: '#' },
-      },
-    ],
-  },
-
-  /** ---- Testimonials Section ---- */
-  testimonials: {
-    badge: 'Testimonials',
-    title: 'Loved by teams worldwide',
-    description: 'See what our customers have to say about us.',
-    items: [
-      {
-        name: 'Sarah Chen',
-        role: 'CTO at TechFlow',
-        avatar: 'https://i.pravatar.cc/150?img=1',
-        text: 'This platform transformed how we build products. We shipped 3x faster and our team loves the developer experience.',
-      },
-      {
-        name: 'Marcus Johnson',
-        role: 'Founder at LaunchPad',
-        avatar: 'https://i.pravatar.cc/150?img=3',
-        text: 'The best investment we made this year. ROI was visible within the first month. Incredible support team too.',
-      },
-      {
-        name: 'Elena Rodriguez',
-        role: 'VP Engineering at ScaleUp',
-        avatar: 'https://i.pravatar.cc/150?img=5',
-        text: 'We evaluated 10+ solutions and this was the clear winner. The integrations alone saved us hundreds of hours.',
-      },
-      {
-        name: 'David Kim',
-        role: 'Product Lead at NextGen',
-        avatar: 'https://i.pravatar.cc/150?img=8',
-        text: 'Finally a tool that understands what developers need. Clean API, great docs, and it just works.',
-      },
-    ],
-  },
+  pricing: pricingConfig[defaultLang],
 
   /** ---- FAQ Section ---- */
   faq: {
     badge: 'FAQ',
-    title: 'Frequently asked questions',
-    description: "Can't find what you're looking for? Contact our support team.",
+    title: '常见问题',
+    description: '找不到答案？欢迎联系我们。',
     items: [
       {
-        question: 'How does the free trial work?',
+        question: 'uDeck 是什么？',
         answer:
-          'You get full access to all Pro features for 14 days. No credit card required. At the end of the trial, choose the plan that works best for you.',
+          'uDeck 是一款 iPhone 与 Mac 之间的 USB 文件桥接工具。它会将 iPhone 中的文件以虚拟磁盘形式挂载到 Mac，让你能通过 Finder 原生管理文件。',
       },
       {
-        question: 'Can I change my plan later?',
+        question: '免费版与 Pro 版有什么区别？',
         answer:
-          'Absolutely! You can upgrade or downgrade your plan at any time. Changes take effect immediately and we prorate your billing.',
+          '你可以免费下载并使用 uDeck 的核心挂载与文件管理功能。如果需要传输数 GB 的超大视频或大量素材，Pro 版将解锁 USB 全速传输。只需一次性付费 ¥18，永久享受，绝无订阅费用。',
       },
       {
-        question: 'Is there a setup fee?',
+        question: '传输时需要连接网络吗？',
         answer:
-          'No setup fees, no hidden costs. You only pay the subscription price shown on this page.',
+          '文件传输完全在本地进行，不需要网络。只有下载 Mac companion app 或检查软件更新时才需要互联网连接。',
       },
       {
-        question: 'Do you offer refunds?',
+        question: '文件会上传到云端吗？',
         answer:
-          'Yes, we offer a 30-day money-back guarantee. If you are not satisfied, contact us for a full refund.',
+          '不会。传输过程全程通过 USB 在本地进行，文件始终停留在你的 iPhone 与 Mac 上。',
       },
       {
-        question: 'What integrations do you support?',
+        question: '可以在 Finder 中直接修改文件吗？',
         answer:
-          'We support 100+ integrations including Slack, Stripe, GitHub, Zapier, HubSpot, Salesforce, and many more. Custom integrations are available on Enterprise plans.',
+          '可以。你可以在 Finder 中创建、复制、编辑、重命名和删除文件，所有变更会同步回 iPhone。',
+      },
+      {
+        question: '为什么传输时需要保持 iPhone 应用在前台？',
+        answer:
+          '为了避免 iOS 系统回收后台资源而中断文件写入，uDeck 在挂载期间需要保持稳定的数据桥接。传输完成后，可以安全 Unmount 并切换应用。',
+      },
+      {
+        question: '为什么 Mount 按钮显示不可用？',
+        answer:
+          '请确认 Mac 上的 uDeck Companion 已启动、iPhone 与 Mac 已通过 USB 线缆正确连接，且 iPhone 应用当前处于前台。',
+      },
+      {
+        question: 'Mac 提示需要启用 File System Extension？',
+        answer:
+          '这是 macOS 为保障虚拟磁盘安全运行提供的标准机制。按照引导在「系统设置 → 登录项与扩展」中开启一次，即可使用 Finder 原生挂载体验。',
+      },
+      {
+        question: '支持 Wi-Fi、Windows 或 Android 吗？',
+        answer:
+          '当前版本专注于 iPhone 与 Mac 之间稳定的 USB 直连和 Finder 原生工作流。',
+      },
+      {
+        question: '传输完成后可以直接拔掉数据线吗？',
+        answer:
+          '建议先在 iPhone 中点击 Unmount/Eject，或在 Mac Finder 侧边栏中弹出 uDeck 磁盘，再断开 USB 线，保障文件完整写入。',
       },
     ],
   },
 
   /** ---- Comparison Table Section ---- */
   comparison: {
-    badge: 'Compare',
-    title: 'How we stack up',
-    description: 'See how Astrolify compares to the competition.',
+    badge: '对比',
+    title: '为什么选择 uDeck？',
+    description: '看看 uDeck 与传统传输方式的区别。',
     columns: [
-      { name: 'Basic', price: 'Free forever', highlighted: false, cta: { label: 'Get Started', href: '#' } },
-      { name: 'Pro', price: '$49 / month', highlighted: true, cta: { label: 'Start Trial', href: '#' } },
-      { name: 'Enterprise', price: 'Custom', highlighted: false, cta: { label: 'Contact Sales', href: '#' } },
+      {
+        name: 'uDeck',
+        price: '¥18 一次性买断',
+        highlighted: true,
+        cta: { label: '选择 uDeck', href: '#pricing' },
+      },
+      {
+        name: 'AirDrop',
+        price: '免费',
+        highlighted: false,
+        cta: { label: '系统内置', href: '#' },
+      },
+      {
+        name: '云盘服务',
+        price: '按月/按年订阅',
+        highlighted: false,
+        cta: { label: '不适用', href: '#' },
+      },
     ],
     rows: [
-      { feature: 'Projects', tooltip: 'Number of active projects', values: ['3', 'Unlimited', 'Unlimited'] },
-      { feature: 'Team members', values: ['1', '10', 'Unlimited'] },
-      { feature: 'Storage', values: ['5 GB', '100 GB', '1 TB'] },
-      { feature: 'Analytics', values: [false, true, true] },
-      { feature: 'API access', values: [false, true, true] },
-      { feature: 'Custom integrations', values: [false, false, true] },
-      { feature: 'SSO / SAML', values: [false, false, true] },
-      { feature: 'SLA & dedicated support', values: [false, false, true] },
-      { feature: 'Priority support', values: [false, true, true] },
-    ],
-  },
-
-  /** ---- Integrations Showcase ---- */
-  integrations: {
-    badge: 'Integrations',
-    title: 'Connects with your stack',
-    description: 'Over 100+ integrations to plug into tools you already love.',
-    categories: [
-      { id: 'payments',  label: 'Payments'    },
-      { id: 'comms',     label: 'Comms'       },
-      { id: 'devtools',  label: 'Dev Tools'   },
-      { id: 'analytics', label: 'Analytics'   },
-      { id: 'crm',       label: 'CRM'         },
-    ],
-    items: [
-      { name: 'Stripe',      icon: 'key',          category: 'payments',  categoryLabel: 'Payments',  description: 'Accept payments and manage subscriptions.' },
-      { name: 'PayPal',      icon: 'shield',       category: 'payments',  categoryLabel: 'Payments',  description: 'One-click checkout with 400M+ buyers.' },
-      { name: 'Slack',       icon: 'send',         category: 'comms',     categoryLabel: 'Comms',     description: 'Send alerts and reports to your Slack channels.' },
-      { name: 'Intercom',    icon: 'headset',      category: 'comms',     categoryLabel: 'Comms',     description: 'Live chat and customer support inbox.' },
-      { name: 'GitHub',      icon: 'code-clipboard', category: 'devtools', categoryLabel: 'Dev Tools', description: 'Trigger deployments from pull requests.' },
-      { name: 'Vercel',      icon: 'rocket',       category: 'devtools',  categoryLabel: 'Dev Tools', description: 'One-click deploy and preview branches.' },
-      { name: 'Zapier',      icon: 'puzzle',       category: 'devtools',  categoryLabel: 'Dev Tools', description: 'Automate workflows with 5,000+ apps.' },
-      { name: 'Mixpanel',    icon: 'chart',        category: 'analytics', categoryLabel: 'Analytics', description: 'Product analytics and user behaviour tracking.' },
-      { name: 'HubSpot',     icon: 'users',        category: 'crm',       categoryLabel: 'CRM',       description: 'Sync contacts, deals and pipeline data.' },
-      { name: 'Salesforce',  icon: 'star',         category: 'crm',       categoryLabel: 'CRM',       description: 'Enterprise CRM with deep two-way sync.' },
-      { name: 'Notion',      icon: 'note',         category: 'devtools',  categoryLabel: 'Dev Tools', description: 'Sync docs and wikis with your workspace.' },
-      { name: 'Linear',      icon: 'check-circle', category: 'devtools',  categoryLabel: 'Dev Tools', description: 'Issue tracking built for fast-moving teams.' },
-    ],
-    cta: {
-      text: "Don't see your tool?",
-      label: 'Request an integration',
-      href: '#contact',
-    },
-  },
-
-  /** ---- Contact Section ---- */
-  contact: {
-    badge: 'Contact',
-    title: "Let's talk",
-    description:
-      "Have a question or ready to get started? Our team replies within 24 hours on business days.",
-    channels: [
-      { icon: 'mail',      label: 'Email us',     href: 'mailto:hello@astrolify.io', value: 'hello@astrolify.io' },
-      { icon: 'headset',   label: 'Live chat',    href: '#',                          value: 'Open in the bottom-right' },
-      { icon: 'satellite', label: 'Headquarters', href: '#',                          value: 'San Francisco, CA' },
-    ],
-    topics: [
-      { label: 'General inquiry',   value: 'general'  },
-      { label: 'Sales & pricing',   value: 'sales'    },
-      { label: 'Technical support', value: 'support'  },
-      { label: 'Partnership',       value: 'partners' },
-      { label: 'Other',             value: 'other'    },
-    ],
-    cta: 'Send Message',
-  },
-
-  /** ---- Team Section ---- */
-  team: {
-    badge: 'Team',
-    title: 'Meet the builders',
-    description: 'A passionate team on a mission to make SaaS development effortless.',
-    members: [
       {
-        name: 'Alex Rivera',
-        role: 'CEO & Co-founder',
-        bio: 'Previously led product at Stripe. Obsessed with developer experience.',
-        avatar: 'https://i.pravatar.cc/150?img=11',
-        socials: [
-          { platform: 'Twitter', icon: 'twitter', href: '#' },
-          { platform: 'LinkedIn', icon: 'linkedin', href: '#' },
-        ],
+        feature: '收费模式',
+        tooltip: '不同方案的成本结构',
+        values: ['一次性买断', '免费', '持续订阅'],
       },
       {
-        name: 'Mia Chen',
-        role: 'CTO & Co-founder',
-        bio: 'Ex-Google engineer. Built infra that serves billions of requests daily.',
-        avatar: 'https://i.pravatar.cc/150?img=5',
-        socials: [
-          { platform: 'Twitter', icon: 'twitter', href: '#' },
-          { platform: 'GitHub', icon: 'github', href: '#' },
-        ],
+        feature: '大文件与批量传输',
+        values: ['USB 稳定高速，拖拽即传', '容易中断或卡死', '取决于上行网速'],
       },
       {
-        name: 'Jordan Lee',
-        role: 'Head of Design',
-        bio: 'Crafts pixel-perfect interfaces that convert visitors into customers.',
-        avatar: 'https://i.pravatar.cc/150?img=15',
-        socials: [
-          { platform: 'Twitter', icon: 'twitter', href: '#' },
-        ],
+        feature: '文件管理体验',
+        values: ['Finder 挂载，直接实时编辑', '主要用于接收和保存', '需要同步或下载至本地'],
       },
       {
-        name: 'Sam Patel',
-        role: 'Head of Growth',
-        bio: 'Scaled 3 SaaS companies from zero to $10M ARR. Loves data.',
-        avatar: 'https://i.pravatar.cc/150?img=8',
-        socials: [
-          { platform: 'LinkedIn', icon: 'linkedin', href: '#' },
-        ],
+        feature: '网络与隐私安全性',
+        values: ['离线直连，文件不上传云端', '依赖无线环境', '需要上传云端服务器'],
       },
     ],
-  },
-
-  /** ---- Trust Badges Section ---- */
-  trust: {
-    badge: 'Security',
-    title: 'Enterprise-grade security & compliance',
-    description: 'Your data is protected by the highest industry standards.',
-    badges: [
-      {
-        icon: 'shield',
-        label: 'SOC 2 Type II',
-        description: 'Independently audited security controls and practices.',
-      },
-      {
-        icon: 'lock',
-        label: 'End-to-End Encryption',
-        description: 'AES-256 encryption at rest and TLS 1.3 in transit.',
-      },
-      {
-        icon: 'eye-off',
-        label: 'GDPR Compliant',
-        description: 'Full compliance with EU data protection regulations.',
-      },
-      {
-        icon: 'check-circle',
-        label: '99.9% Uptime SLA',
-        description: 'Guaranteed availability backed by financial SLA.',
-      },
-      {
-        icon: 'users',
-        label: 'Role-Based Access',
-        description: 'Granular permissions so the right people see the right data.',
-      },
-      {
-        icon: 'download',
-        label: 'Daily Backups',
-        description: 'Automated backups with point-in-time restore.',
-      },
-    ],
-    certifications: [
-      { name: 'ISO 27001', icon: 'shield' },
-      { name: 'HIPAA Ready', icon: 'lock' },
-      { name: 'GDPR', icon: 'check-circle' },
-      { name: 'CCPA', icon: 'check-circle' },
-      { name: 'PCI DSS', icon: 'key' },
-    ],
-  },
-
-  /** ---- Feature Tabs Section ---- */
-  featureTabs: {
-    badge: 'Platform',
-    title: 'One platform, endless possibilities',
-    description: 'Everything your team needs to ship fast and grow reliably.',
-    tabs: [
-      {
-        label: 'Analytics',
-        icon: 'chart',
-        summary: 'Real-time dashboards and AI-powered insights to guide every decision.',
-        cta: { label: 'Explore Analytics', href: '#features' },
-        features: [
-          { icon: 'chart',    title: 'Real-time dashboards', description: 'Monitor KPIs live with customizable widgets and charts.' },
-          { icon: 'rocket',   title: 'Funnel analysis',      description: 'Identify drop-off points and optimise your conversion flow.' },
-          { icon: 'users',    title: 'User cohorts',         description: 'Segment users by behaviour, plan, or custom attributes.' },
-          { icon: 'clipboard', title: 'Automated reports',    description: 'Schedule PDF or Slack reports on any cadence.' },
-        ],
-      },
-      {
-        label: 'Collaboration',
-        icon: 'users',
-        summary: 'Built for teams — roles, permissions, and real-time editing out of the box.',
-        cta: { label: 'Explore Collaboration', href: '#features' },
-        features: [
-          { icon: 'users',        title: 'Team workspaces',  description: 'Separate spaces for each team with shared resources.' },
-          { icon: 'lock',         title: 'Granular roles',   description: 'Admin, Editor, Viewer — and custom roles for Enterprise.' },
-          { icon: 'send',         title: 'In-app comments',  description: 'Leave feedback directly on any element.' },
-          { icon: 'check-circle', title: 'Activity log',     description: 'Full audit trail of every change and who made it.' },
-        ],
-      },
-      {
-        label: 'Automation',
-        icon: 'puzzle',
-        summary: 'Automate repetitive tasks and connect to any tool in your stack.',
-        cta: { label: 'Explore Automation', href: '#features' },
-        features: [
-          { icon: 'puzzle',   title: 'Visual workflow builder', description: 'Drag-and-drop automation without a single line of code.' },
-          { icon: 'code-clipboard', title: 'Webhooks & API',          description: 'Trigger actions in external apps instantly.' },
-          { icon: 'calendar', title: 'Scheduled jobs',          description: 'Run tasks on a cron schedule with full logging.' },
-          { icon: 'headset',  title: 'Event-driven alerts',     description: 'Notify the right person when something needs attention.' },
-        ],
-      },
-    ],
-  },
-
-  /** ---- Roadmap Section ---- */
-  roadmap: {
-    badge: 'Roadmap',
-    title: "What's coming next",
-    description: "We ship every two weeks. Here's what we've built and what's ahead.",
-    items: [
-      {
-        period: 'Q1 2024',
-        title: 'Core platform launch',
-        description: 'Authentication, billing, analytics foundations, and the core API — all live.',
-        status: 'done',
-        tags: ['Auth', 'Billing', 'API'],
-      },
-      {
-        period: 'Q2 2024',
-        title: 'Team collaboration',
-        description: 'Workspaces, roles & permissions, and real-time commenting shipped.',
-        status: 'done',
-        tags: ['Workspaces', 'Roles'],
-      },
-      {
-        period: 'Q3 2024',
-        title: 'Automation engine',
-        description: 'Visual workflow builder and webhook triggers are rolling out to all plans now.',
-        status: 'in-progress',
-        tags: ['Workflows', 'Webhooks'],
-      },
-      {
-        period: 'Q4 2024',
-        title: 'AI-powered insights',
-        description: 'Natural language querying, anomaly detection, and smart recommendations.',
-        status: 'planned',
-        tags: ['AI', 'ML'],
-      },
-      {
-        period: 'Q1 2025',
-        title: 'Mobile apps',
-        description: 'Native iOS and Android apps for on-the-go access to your dashboard.',
-        status: 'planned',
-        tags: ['iOS', 'Android'],
-      },
-    ],
-  },
-
-  /** ---- Blog Preview Section ---- */
-  blog: {
-    badge: 'Blog',
-    title: 'From the team',
-    description: 'Tips, tutorials, and stories from the people building Astrolify.',
-    posts: [
-      {
-        title: 'How we scaled to 10K users without breaking the bank',
-        excerpt: 'A behind-the-scenes look at the architecture decisions and trade-offs that let us grow fast without burning cash.',
-        category: 'Engineering',
-        icon: 'rocket',
-        date: 'Dec 12, 2024',
-        readTime: '8 min read',
-        href: '#',
-        author: { name: 'Mia Chen', avatar: 'https://i.pravatar.cc/150?img=5' },
-      },
-      {
-        title: 'The anatomy of a great SaaS landing page',
-        excerpt: 'What every high-converting SaaS page gets right — and the mistakes most founders make.',
-        category: 'Growth',
-        icon: 'chart',
-        date: 'Nov 28, 2024',
-        readTime: '5 min read',
-        href: '#',
-        author: { name: 'Sam Patel', avatar: 'https://i.pravatar.cc/150?img=8' },
-      },
-      {
-        title: 'Designing for dark mode: lessons learned',
-        excerpt: 'Dark mode is no longer optional. Here is how we built a system that works beautifully in both themes.',
-        category: 'Design',
-        icon: 'eye-off',
-        date: 'Nov 10, 2024',
-        readTime: '6 min read',
-        href: '#',
-        author: { name: 'Jordan Lee', avatar: 'https://i.pravatar.cc/150?img=15' },
-      },
-    ],
-    cta: { label: 'Read all articles', href: '#' },
-  },
-
-  /** ---- Newsletter / CTA Section ---- */
-  newsletter: {
-    title: 'Ready to get started?',
-    description:
-      'Join 10,000+ companies already growing with our platform. Start your free trial today.',
-    placeholder: 'Enter your email',
-    cta: { label: 'Start Free Trial', href: '#' },
   },
 
   /** ---- Footer ---- */
   footer: {
-    description: 'Build, launch, and scale your SaaS with confidence.',
+    description: '把 iPhone 变成 Mac 原生高速随身盘。一次买断，终身使用。',
     columns: [
       {
-        title: 'Product',
+        title: '产品',
         links: [
-          { label: 'Features', href: '#features' },
-          { label: 'Pricing', href: '#pricing' },
-          { label: 'Changelog', href: '#' },
-          { label: 'Docs', href: '#' },
+          { label: '功能', href: '#features', target: undefined, rel: undefined },
+          { label: '价格', href: '#pricing', target: undefined, rel: undefined },
+          { label: '下载', href: '#pricing', target: undefined, rel: undefined },
         ],
       },
       {
-        title: 'Company',
+        title: '支持',
         links: [
-          { label: 'About', href: '#' },
-          { label: 'Blog', href: '#' },
-          { label: 'Careers', href: '#' },
-          { label: 'Contact', href: '#' },
+          { label: 'FAQ', href: '#faq', target: undefined, rel: undefined },
+          { label: '联系我们', href: 'mailto:heqi.ju@outlook.com', target: undefined, rel: undefined },
         ],
       },
       {
-        title: 'Legal',
+        title: '法律',
         links: [
-          { label: 'Privacy', href: '/privacy' },
-          { label: 'Terms', href: '#' },
-          { label: 'License', href: '#' },
+          { label: '隐私政策', href: 'https://captainjh.github.io/privacy-policy/uDeck/index.html', target: '_blank', rel: 'noopener' },
+          { label: '服务条款', href: 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/', target: '_blank', rel: 'noopener' },
         ],
       },
-    ],
-    socials: [
-      { icon: 'twitter', href: '#' },
-      { icon: 'github', href: '#' },
-      { icon: 'linkedin', href: '#' },
     ],
   },
 }

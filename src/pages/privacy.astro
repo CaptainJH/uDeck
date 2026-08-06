@@ -2,112 +2,110 @@
 import Layout from '../layouts/Layout.astro'
 import { siteConfig } from '../config/site.config'
 
-const title = `Privacy Policy — ${siteConfig.brand.name}`
-const description = `How ${siteConfig.brand.name} collects, uses, and protects your personal information.`
+const title = `隐私政策 — ${siteConfig.brand.name}`
+const description = `了解 ${siteConfig.brand.name} 如何处理你的数据。uDeck 的文件传输完全在本地进行，不会上传云端。`
 
-const updated = 'April 7, 2026'
+const updated = '2026 年 8 月 6 日'
 ---
 
 <Layout title={title} description={description}>
   <article class="ac-legal">
     <header class="ac-legal__header">
-      <h1 class="ac-legal__title">Privacy Policy</h1>
+      <h1 class="ac-legal__title">隐私政策</h1>
       <p class="ac-legal__meta">
-        Last updated: <time datetime="2026-04-07">{updated}</time>
+        最后更新：<time datetime="2026-08-06">{updated}</time>
       </p>
     </header>
 
     <div class="ac-legal__body">
       <p class="ac-legal__notice">
-        This page is <strong>sample copy</strong> for a starter template. Replace it with your real policy
-        and have it reviewed by qualified legal counsel before publishing.
+        uDeck 是一款强调本地隐私的文件桥接工具。本政策说明我们在你使用 uDeck 网站和应用程序时如何处理信息。
       </p>
 
       <section class="ac-legal__section" aria-labelledby="legal-intro">
-        <h2 id="legal-intro">Introduction</h2>
+        <h2 id="legal-intro">简介</h2>
         <p>
-          {siteConfig.brand.name} (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) respects your privacy. This policy
-          describes how we handle information when you use our website and services (the
-          &quot;Services&quot;).
+          uDeck（"我们"）尊重你的隐私。本政策描述你在使用 uDeck 网站、Mac companion app 和 iOS app（统称"服务"）时，我们如何收集、使用和保护你的信息。
+        </p>
+      </section>
+
+      <section class="ac-legal__section" aria-labelledby="local-transfer">
+        <h2 id="local-transfer">文件传输完全在本地</h2>
+        <p>
+          uDeck 的核心功能是将 iPhone 通过 USB 以虚拟磁盘形式挂载到 Mac。所有文件传输均通过 USB 在本地进行，<strong>不会上传到任何云端服务器</strong>。我们无法访问你的文件内容、文件名或文件结构。
         </p>
       </section>
 
       <section class="ac-legal__section" aria-labelledby="legal-collect">
-        <h2 id="legal-collect">Information we collect</h2>
-        <p>We may collect:</p>
+        <h2 id="legal-collect">我们收集的信息</h2>
+        <p>我们可能收集极少量的信息：</p>
         <ul>
           <li>
-            <strong>Account data</strong> — such as name, email, and organization when you register or contact us.
+            <strong>联系信息</strong> — 当你通过网站联系表单或邮件联系我们时，你提供的邮箱和消息内容。
           </li>
           <li>
-            <strong>Usage data</strong> — such as pages visited, approximate location (derived from IP), device type, and
-            timestamps.
+            <strong>使用数据</strong> — 网站访问统计（如页面浏览、访问来源、设备类型），用于改进网站体验。如启用 Umami 分析，该数据为匿名聚合数据。
           </li>
           <li>
-            <strong>Technical data</strong> — such as browser type, cookies, and similar technologies as described below.
+            <strong>技术支持信息</strong> — 你主动提供的应用版本、系统版本等信息，用于排查问题。
           </li>
+        </ul>
+      </section>
+
+      <section class="ac-legal__section" aria-labelledby="legal-not-collect">
+        <h2 id="legal-not-collect">我们不收集的信息</h2>
+        <p>我们明确不收集以下内容：</p>
+        <ul>
+          <li>你的文件内容、文件名、文件夹结构或元数据；</li>
+          <li>传输历史记录；</li>
+          <li>需要账号登录的个人信息；</li>
+          <li>你的 iPhone 或 Mac 上的其他应用数据。</li>
         </ul>
       </section>
 
       <section class="ac-legal__section" aria-labelledby="legal-use">
-        <h2 id="legal-use">How we use information</h2>
-        <p>We use collected information to:</p>
+        <h2 id="legal-use">信息用途</h2>
+        <p>我们使用收集的信息用于：</p>
         <ul>
-          <li>Provide, operate, and improve the Services;</li>
-          <li>Communicate with you about updates, security, and support;</li>
-          <li>Analyze usage in aggregated or de-identified form;</li>
-          <li>Comply with law and protect rights, safety, and security.</li>
+          <li>回复你的咨询和提供技术支持；</li>
+          <li>改进网站和应用程序；</li>
+          <li>发送产品更新和重要通知（仅在你订阅时）；</li>
+          <li>遵守法律法规。</li>
         </ul>
       </section>
 
       <section class="ac-legal__section" aria-labelledby="legal-cookies">
-        <h2 id="legal-cookies">Cookies and similar technologies</h2>
+        <h2 id="legal-cookies">Cookie 和本地存储</h2>
         <p>
-          We and our partners may use cookies, local storage, and similar technologies for essential operation,
-          preferences (such as theme), analytics, and marketing where permitted. You can control cookies through
-          your browser settings.
+          我们使用浏览器的本地存储来记住你的主题偏好（浅色/深色模式）。我们不在网站上使用广告或追踪 Cookie。如启用分析，仅使用必要的匿名统计 Cookie。
         </p>
       </section>
 
       <section class="ac-legal__section" aria-labelledby="legal-sharing">
-        <h2 id="legal-sharing">Sharing and subprocessors</h2>
+        <h2 id="legal-sharing">信息共享</h2>
         <p>
-          We may share information with service providers who assist us (e.g. hosting, analytics, email delivery),
-          subject to contracts that limit use to providing services on our behalf. We may also disclose
-          information if required by law or to protect users and the public.
+          我们不会出售你的个人信息。仅在以下情况下可能共享信息：经你同意、为提供服务所必需（如邮件发送服务提供商）、或应法律要求。
         </p>
       </section>
 
       <section class="ac-legal__section" aria-labelledby="legal-rights">
-        <h2 id="legal-rights">Your rights and choices</h2>
+        <h2 id="legal-rights">你的权利</h2>
         <p>
-          Depending on where you live, you may have rights to access, correct, delete, or export personal data,
-          or to object to certain processing. Contact us to exercise these rights. You may also unsubscribe from
-          marketing emails using the link in those messages.
-        </p>
-      </section>
-
-      <section class="ac-legal__section" aria-labelledby="legal-retention">
-        <h2 id="legal-retention">Retention</h2>
-        <p>
-          We retain information only as long as necessary for the purposes above, unless a longer period is
-          required by law.
+          你可以随时联系我们，要求访问、更正或删除我们持有的关于你的个人信息。你也可以取消订阅我们的更新邮件。
         </p>
       </section>
 
       <section class="ac-legal__section" aria-labelledby="legal-changes">
-        <h2 id="legal-changes">Changes to this policy</h2>
+        <h2 id="legal-changes">政策变更</h2>
         <p>
-          We may update this policy from time to time. We will post the new version on this page and adjust the
-          &quot;Last updated&quot; date.
+          我们可能会不时更新本政策。更新后的版本将发布在本页面，并更新"最后更新"日期。
         </p>
       </section>
 
       <section class="ac-legal__section" aria-labelledby="legal-contact">
-        <h2 id="legal-contact">Contact</h2>
+        <h2 id="legal-contact">联系我们</h2>
         <p>
-          Questions about this policy: use the contact options on our website or reach your account
-          representative.
+          如对本隐私政策有任何疑问，请通过网站联系表单或邮件 support@udeck.app 与我们联系。
         </p>
       </section>
     </div>

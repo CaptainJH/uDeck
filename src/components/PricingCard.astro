@@ -7,8 +7,10 @@ import { revealStaggerTokens } from '../utils/reveal'
 export interface PricingPlan {
   name: string
   description: string
-  monthlyPrice: number
-  yearlyPrice: number
+  priceType: 'free' | 'one-time'
+  price: number
+  currency: string
+  priceLabel: string
   featured?: boolean
   features: string[]
   cta: { label: string; href: string }
@@ -32,7 +34,7 @@ const { plan, index } = Astro.props
   {
     plan.featured && (
       <div class="ac-pricing__popular">
-        <Badge label="Most Popular" variant="gradient" size="small" />
+        <Badge label="最受欢迎" variant="gradient" size="small" />
       </div>
     )
   }
@@ -43,15 +45,7 @@ const { plan, index } = Astro.props
   </div>
 
   <div class="ac-pricing__price">
-    <span class="ac-pricing__currency">$</span>
-    <span
-      class="ac-pricing__amount"
-      data-monthly={plan.monthlyPrice}
-      data-yearly={plan.yearlyPrice}
-    >
-      {plan.monthlyPrice}
-    </span>
-    <span class="ac-pricing__period">/month</span>
+    <span class="ac-pricing__amount">{plan.priceLabel}</span>
   </div>
 
   <div class="ac-pricing__lower">
@@ -121,6 +115,7 @@ const { plan, index } = Astro.props
     display: flex;
     align-items: baseline;
     gap: var(--ac-spacing-1);
+    min-height: 3.5rem;
   }
 
   .ac-pricing__lower {
@@ -129,23 +124,12 @@ const { plan, index } = Astro.props
     gap: var(--ac-spacing-8);
   }
 
-  .ac-pricing__currency {
-    font-size: var(--ac-text-2xl);
-    font-weight: var(--ac-font-bold);
-    color: var(--ac-text);
-  }
-
   .ac-pricing__amount {
     font-size: var(--ac-text-5xl);
     font-weight: var(--ac-font-extrabold);
     color: var(--ac-text);
     line-height: var(--ac-leading-none);
     transition: var(--ac-transition);
-  }
-
-  .ac-pricing__period {
-    font-size: var(--ac-text-sm);
-    color: var(--ac-text-muted);
   }
 
   .ac-pricing__cta {

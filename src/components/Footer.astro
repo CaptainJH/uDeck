@@ -1,7 +1,6 @@
 ---
 import '../styles/globals.css'
 import { siteConfig } from '../config/site.config'
-import Icon from './Icon.astro'
 
 const { brand, footer } = siteConfig
 const year = new Date().getFullYear()
@@ -13,17 +12,10 @@ const year = new Date().getFullYear()
       <!-- Brand column -->
       <div class="ac-footer__brand">
         <a href="/" class="ac-footer__logo">
-          <span class="gradient-text">{brand.name}</span>
+          <img src={brand.logo} alt={brand.name} class="ac-footer__logo-img" />
         </a>
         <div class="ac-footer__brand-lower">
           <p class="ac-footer__description">{footer.description}</p>
-          <div class="ac-footer__socials">
-            {footer.socials.map((social) => (
-              <a href={social.href} class="ac-footer__social" aria-label={social.icon} target="_blank" rel="noopener">
-                <Icon name={social.icon} size={20} />
-              </a>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -35,7 +27,9 @@ const year = new Date().getFullYear()
             <ul class="ac-footer__links">
             {col.links.map((link) => (
               <li>
-                <a href={link.href} class="ac-footer__link">{link.label}</a>
+                <a href={link.href} class="ac-footer__link" target={link.target} rel={link.rel}>
+                  {link.label}
+                </a>
               </li>
             ))}
             </ul>
@@ -83,10 +77,15 @@ const year = new Date().getFullYear()
   }
 
   .ac-footer__logo {
-    display: inline-block;
-    font-size: var(--ac-text-xl);
-    font-weight: var(--ac-font-extrabold);
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
+  }
+
+  .ac-footer__logo-img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--ac-rounded-xl);
   }
 
   .ac-footer__description {
@@ -100,29 +99,6 @@ const year = new Date().getFullYear()
     display: flex;
     flex-direction: column;
     gap: var(--ac-spacing-4);
-  }
-
-  .ac-footer__socials {
-    display: flex;
-    gap: var(--ac-spacing-3);
-  }
-
-  .ac-footer__social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: var(--ac-rounded-lg);
-    color: var(--ac-text-muted);
-    background-color: var(--ac-bg-muted);
-    transition: var(--ac-transition);
-    text-decoration: none;
-  }
-
-  .ac-footer__social:hover {
-    color: rgb(var(--ac-white));
-    background: var(--ac-gradient-primary);
   }
 
   .ac-footer__column-title {

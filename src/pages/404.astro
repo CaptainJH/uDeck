@@ -5,16 +5,16 @@ import Button from '../components/Button.astro'
 ---
 
 <Layout
-  title={`Page not found — ${siteConfig.brand.name}`}
-  description="The page you are looking for does not exist or was moved."
+  title={`页面未找到 — ${siteConfig.brand.name}`}
+  description="你访问的页面不存在或已被移动。"
 >
   <section class="ac-not-found">
     <p class="ac-not-found__eyebrow">404</p>
-    <h1 class="ac-not-found__title">This page is off the map</h1>
+    <h1 class="ac-not-found__title">这个页面不在地图上</h1>
     <p class="ac-not-found__text">
-      Check the URL or head back to the homepage to keep exploring {siteConfig.brand.name}.
+      请检查网址，或返回首页继续探索 {siteConfig.brand.name}。
     </p>
-    <Button href="/" label="Back to home" variant="primary" icon="arrow-right" />
+    <Button href="/" label="返回首页" variant="primary" icon="arrow_right" />
   </section>
 </Layout>
 
