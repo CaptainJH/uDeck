@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
 on:
   push:
@@ -43,8 +43,18 @@ jobs:
         with:
           path: ./dist
 
+      - name: Deploy to Aliyun
+        uses: easingthemes/ssh-deploy@v5.0.3
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.ALI_SERVER_PRIVATE_KEY }}
+          ARGS: "-rlgoDzc --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.ALI_SERVER_IP }}
+          REMOTE_USER: ${{ secrets.ALI_SERVER_USER }}
+          TARGET: "/var/www/uDeck"
+
   deploy:
-    name: Deploy
+    name: Deploy to GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
