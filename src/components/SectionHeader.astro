@@ -27,7 +27,15 @@ const {
       ) : null
     }
     <h2 class="section-title">{title}</h2>
-    {description ? <p class="section-description">{description}</p> : null}
+    {
+      Astro.slots.has('description') ? (
+        <p class="section-description">
+          <slot name="description" />
+        </p>
+      ) : description ? (
+        <p class="section-description">{description}</p>
+      ) : null
+    }
   </div>
   <slot />
 </div>

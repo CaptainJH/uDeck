@@ -24,7 +24,7 @@ const siteConfigRaw = {
   nav: {
     links: [
       { label: '功能', href: '#features' },
-      { label: '三步使用', href: '#how-it-works' },
+      { label: '使用', href: '#how-it-works' },
       { label: '对比', href: '#comparison' },
       { label: '价格', href: '#pricing' },
       { label: 'FAQ', href: '#faq' },

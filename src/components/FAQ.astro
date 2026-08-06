@@ -3,22 +3,88 @@ import '../styles/globals.css'
 import { siteConfig } from '../config/site.config'
 import LandingSection from './LandingSection.astro'
 import SectionHeader from './SectionHeader.astro'
-import Accordion from './Accordion.astro'
-import AccordionItem from './AccordionItem.astro'
 
-const { faq } = siteConfig
+const { faq, footer } = siteConfig
+const contactLink = footer.columns
+  .flatMap((column) => column.links)
+  .find((link) => link.label === '联系我们')
 ---
 
 <LandingSection id="faq" class="section">
-  <SectionHeader badge={faq.badge} title={faq.title} description={faq.description} />
+  <SectionHeader badge={faq.badge} title={faq.title}>
+    <Fragment slot="description">
+      {
+        contactLink && (
+          <>
+            找不到答案？欢迎
+            <a class="faq-contact-link" href={contactLink.href} target={contactLink.target} rel={contactLink.rel}
+              >联系我们</a
+            >
+            。
+          </>
+        )
+      }
+    </Fragment>
+  </SectionHeader>
 
-  <Accordion class="animate-fade-in-up">
+  <div class="faq-list animate-fade-in-up">
     {
       faq.items.map((item) => (
-        <AccordionItem name="faq" title={item.question} toggleStyle="chevron">
-          <p>{item.answer}</p>
-        </AccordionItem>
+        <article class="faq-item">
+          <h3 class="faq-question">{item.question}</h3>
+          <p class="faq-answer">{item.answer}</p>
+        </article>
       ))
     }
-  </Accordion>
+  </div>
 </LandingSection>
+
+<style>
+  .faq-list {
+    display: grid;
+    gap: var(--ac-spacing-4);
+  }
+
+  .faq-item {
+    background-color: var(--ac-card-bg);
+    border: 0.0625rem solid var(--ac-card-border);
+    border-radius: var(--ac-rounded-xl);
+    box-shadow: var(--ac-shadow-sm);
+    padding: var(--ac-spacing-6);
+  }
+
+  .faq-question {
+    margin: 0 0 var(--ac-spacing-3);
+    color: var(--ac-text);
+    font-size: var(--ac-text-md);
+    font-weight: var(--ac-font-semibold);
+    line-height: var(--ac-leading-normal);
+  }
+
+  .faq-answer {
+    margin: 0;
+    color: var(--ac-text-muted);
+    font-size: var(--ac-text-sm);
+    line-height: var(--ac-leading-relaxed);
+  }
+
+  .faq-contact-link {
+    display: inline-block;
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 0.125rem;
+    text-underline-offset: 0.1875rem;
+    border-bottom: 0.0625rem solid currentColor;
+    line-height: 1;
+  }
+
+  @media (max-width: 48rem) {
+    .faq-item {
+      padding: var(--ac-spacing-5);
+    }
+
+    .faq-question {
+      font-size: var(--ac-text-sm);
+    }
+  }
+</style>
