@@ -43,29 +43,15 @@ jobs:
         with:
           path: ./dist
 
-      - name: Pack dist
-        run: tar -czf site.tar.gz -C dist .
-
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.ALI_SERVER_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H "${{ secrets.ALI_SERVER_IP }}" >> ~/.ssh/known_hosts
-
       - name: Deploy to Aliyun
-        run: |
-          scp site.tar.gz "${{ secrets.ALI_SERVER_USER }}@${{ secrets.ALI_SERVER_IP }}:/tmp/udeck-site.tar.gz"
-          ssh "${{ secrets.ALI_SERVER_USER }}@${{ secrets.ALI_SERVER_IP }}" '
-            set -e
-            rm -rf /var/www/uDeck.new /var/www/uDeck.old
-            mkdir -p /var/www/uDeck.new
-            tar -xzf /tmp/udeck-site.tar.gz -C /var/www/uDeck.new
-            rm -f /tmp/udeck-site.tar.gz
-            if [ -d /var/www/uDeck ]; then mv /var/www/uDeck /var/www/uDeck.old; fi
-            mv /var/www/uDeck.new /var/www/uDeck
-            rm -rf /var/www/uDeck.old
-          '
+        uses: easingthemes/ssh-deploy@v5.0.3
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.ALI_SERVER_PRIVATE_KEY }}
+          ARGS: "-rlgoDzc --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.ALI_SERVER_IP }}
+          REMOTE_USER: ${{ secrets.ALI_SERVER_USER }}
+          TARGET: "/var/www/uDeck"
 
   deploy:
     name: Deploy to GitHub Pages
