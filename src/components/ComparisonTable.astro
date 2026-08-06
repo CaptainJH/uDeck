@@ -21,12 +21,11 @@ const { comparison } = siteConfig
       <table class="ac-comparison__table">
         <thead>
           <tr>
-            <th class="ac-comparison__th ac-comparison__th--feature">Feature</th>
+            <th class="ac-comparison__th ac-comparison__th--feature">核心维度</th>
             {comparison.columns.map((col) => (
               <th class:list={['ac-comparison__th', col.highlighted && 'ac-comparison__th--highlighted']}>
                 <div class="ac-comparison__col-header">
                   <span class="ac-comparison__col-name">{col.name}</span>
-                  {col.price && <span class="ac-comparison__col-price">{col.price}</span>}
                 </div>
               </th>
             ))}
@@ -37,9 +36,6 @@ const { comparison } = siteConfig
             <tr class="ac-comparison__row">
               <td class="ac-comparison__td ac-comparison__td--feature">
                 <span class="ac-comparison__feature-name">{row.feature}</span>
-                {row.tooltip && <span class="ac-comparison__tooltip" title={row.tooltip}>
-                  <Icon name="info" size={14} />
-                </span>}
               </td>
               {row.values.map((val, i) => (
                 <td class:list={['ac-comparison__td', comparison.columns[i]?.highlighted && 'ac-comparison__td--highlighted']}>
@@ -119,11 +115,6 @@ const { comparison } = siteConfig
     color: var(--ac-text);
   }
 
-  .ac-comparison__col-price {
-    font-size: var(--ac-text-sm);
-    color: var(--ac-text-muted);
-  }
-
   /* Rows */
   .ac-comparison__row {
     border-bottom: 0.0625rem solid var(--ac-border-color);
@@ -156,14 +147,6 @@ const { comparison } = siteConfig
     font-size: var(--ac-text-sm);
     color: var(--ac-text);
     font-weight: var(--ac-font-medium);
-  }
-
-  .ac-comparison__tooltip {
-    display: inline-flex;
-    margin-left: var(--ac-spacing-1);
-    color: var(--ac-text-muted);
-    cursor: help;
-    vertical-align: middle;
   }
 
   .ac-comparison__check {
