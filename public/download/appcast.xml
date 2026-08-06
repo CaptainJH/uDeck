@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>uDeck</title>
+        <item>
+            <title>1.0</title>
+            <pubDate>Thu, 06 Aug 2026 23:49:55 +0800</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://www.scribepal.top/uDeck/download/uDeck-build-1.dmg" length="5429024" type="application/octet-stream" sparkle:edSignature="bicjV5GbmxZQq2Lo9QPQwg9DEXfUpRTkzsyP3LsWiAK26v6oDTgQsI3uvF11fPozef47jKLKcUpWTJuzJiW1Dg=="/>
+        </item>
+    </channel>
+</rss>
