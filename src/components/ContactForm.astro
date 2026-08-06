@@ -1,0 +1,146 @@
+---
+import '../styles/globals.css'
+import { siteConfig } from '../config/site.config'
+import LandingSection from './LandingSection.astro'
+import ContactIntro from './ContactIntro.astro'
+import Input from './Input.astro'
+import Textarea from './Textarea.astro'
+import Select from './Select.astro'
+import Button from './Button.astro'
+
+const { contact, forms } = siteConfig
+const rawContactAction = forms?.contactAction?.trim() ?? ''
+const contactNetlify = forms?.contactNetlify ?? false
+const contactFormAction =
+  rawContactAction.length > 0 ? rawContactAction : contactNetlify ? '/' : undefined
+const contactDemoOnly = !rawContactAction && !contactNetlify
+---
+
+<LandingSection id="contact" class="section ac-section-band--subtle">
+  <div class="ac-contact">
+    <div class="ac-contact__layout animate-fade-in-up">
+    <ContactIntro
+      badge={contact.badge}
+      title={contact.title}
+      description={contact.description}
+      channels={contact.channels}
+    />
+
+    <div class="ac-contact__form-wrap">
+      <form
+        class="ac-contact__form"
+        data-contact-form
+        {...contactDemoOnly ? { 'data-demo-only': '' } : {}}
+        action={contactFormAction}
+        method={contactFormAction !== undefined || contactNetlify ? 'POST' : undefined}
+        {...contactNetlify
+          ? { 'data-netlify': 'true', name: 'contact' }
+          : {}}
+      >
+        <div class="ac-contact__row">
+          <Input label="First name" placeholder="Jane" name="firstName" required />
+          <Input label="Last name" placeholder="Doe" name="lastName" required />
+        </div>
+
+        <Input
+          label="Email"
+          type="email"
+          placeholder="jane@company.com"
+          name="email"
+          required
+        />
+
+        <Select label="Topic" name="topic" options={contact.topics} />
+
+        <Textarea
+          label="Message"
+          placeholder="Tell us how we can help…"
+          name="message"
+          rows={5}
+          required
+        />
+
+        <Button type="submit" label={contact.cta} variant="primary" />
+
+        <p class="ac-contact__privacy">
+          By submitting you agree to our <a href="/privacy">Privacy Policy</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+  </div>
+</LandingSection>
+
+<style>
+  .ac-contact__layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: var(--ac-spacing-20);
+    align-items: start;
+  }
+
+  .ac-contact__form-wrap {
+    background: var(--ac-card-bg);
+    border: 0.0625rem solid var(--ac-border-color);
+    border-radius: var(--ac-rounded-2xl);
+    padding: var(--ac-spacing-10);
+    box-shadow: var(--ac-shadow-lg);
+  }
+
+  .ac-contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-5);
+  }
+
+  .ac-contact__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ac-spacing-4);
+  }
+
+  .ac-contact__privacy {
+    font-size: var(--ac-text-xs);
+    color: var(--ac-text-muted);
+    text-align: center;
+  }
+
+  .ac-contact__privacy a {
+    color: rgb(var(--ac-primary));
+    text-decoration: none;
+  }
+
+  .ac-contact__privacy a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 56.25rem) {
+    .ac-contact__layout {
+      grid-template-columns: 1fr;
+      gap: var(--ac-spacing-12);
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .ac-contact__row {
+      grid-template-columns: 1fr;
+    }
+
+    .ac-contact__form-wrap {
+      padding: var(--ac-spacing-6);
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector('[data-contact-form]') as HTMLFormElement | null
+  form?.addEventListener('submit', (e) => {
+    if (!form.hasAttribute('data-demo-only')) return
+    e.preventDefault()
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null
+    if (btn) {
+      btn.textContent = 'Message sent!'
+      btn.disabled = true
+    }
+  })
+</script>

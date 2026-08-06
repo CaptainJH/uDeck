@@ -1,0 +1,18 @@
+---
+import '../styles/globals.css'
+
+interface Props {
+  id?: string
+  class?: string
+  containerClass?: string
+  style?: string
+}
+
+const { id, class: sectionClass, containerClass, style } = Astro.props
+---
+
+<section id={id} class:list={[sectionClass]} style={style}>
+  <div class:list={['container', containerClass]}>
+    <slot />
+  </div>
+</section>

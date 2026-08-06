@@ -1,0 +1,127 @@
+---
+import '../styles/globals.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import { siteConfig } from '../config/site.config'
+import { THEME_STORAGE_KEY } from '../utils/theme-storage'
+
+interface Props {
+  title?: string
+  description?: string
+  /** Absolute or site-relative image for og:image (optional; defaults to seo.defaultOgImage) */
+  ogImage?: string
+}
+
+const {
+  title = `${siteConfig.brand.name} — ${siteConfig.brand.tagline}`,
+  description = siteConfig.hero.description,
+  ogImage: ogImageProp,
+} = Astro.props
+
+const { brand, seo } = siteConfig
+const canonicalUrl = new URL(Astro.url.pathname, seo.siteUrl).href
+const defaultImagePath = seo.defaultOgImage ?? '/favicon.svg'
+function absoluteUrl(pathOrUrl: string): string {
+  return pathOrUrl.startsWith('http') ? pathOrUrl : new URL(pathOrUrl, seo.siteUrl).href
+}
+const ogImageUrl = ogImageProp ? absoluteUrl(ogImageProp) : absoluteUrl(defaultImagePath)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: brand.name,
+  description,
+  url: seo.siteUrl,
+  applicationCategory: 'BusinessApplication',
+}
+---
+
+<!doctype html>
+<html lang={seo.lang} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content={seo.lang} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    {
+      seo.twitterHandle ? (
+        <meta name="twitter:site" content={seo.twitterHandle} />
+      ) : null
+    }
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+
+    {import.meta.env.PUBLIC_UMAMI_WEBSITE_ID && (
+      <script
+        is:inline
+        defer
+        src={siteConfig.umami?.src ?? 'https://cloud.umami.is/script.js'}
+        data-website-id={import.meta.env.PUBLIC_UMAMI_WEBSITE_ID}
+      ></script>
+    )}
+
+    <script is:inline define:vars={{ themeKey: THEME_STORAGE_KEY }}>
+      (() => {
+        try {
+          const stored = localStorage.getItem(themeKey)
+          let theme =
+            stored === 'dark' || stored === 'light'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+          document.documentElement.setAttribute('data-theme', theme)
+        } catch {
+          document.documentElement.setAttribute(
+            'data-theme',
+            window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light',
+          )
+        }
+      })()
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <a class="ac-skip-link" href="#main-content">Skip to main content</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    padding-top: 4.5rem;
+  }
+</style>
+
+<script>
+  import { initRevealOnScroll } from '../utils/revealOnScroll'
+  initRevealOnScroll()
+</script>

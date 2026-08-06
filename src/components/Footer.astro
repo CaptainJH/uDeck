@@ -1,0 +1,177 @@
+---
+import '../styles/globals.css'
+import { siteConfig } from '../config/site.config'
+import Icon from './Icon.astro'
+
+const { brand, footer } = siteConfig
+const year = new Date().getFullYear()
+---
+
+<footer class="ac-footer">
+  <div class="container">
+    <div class="ac-footer__grid">
+      <!-- Brand column -->
+      <div class="ac-footer__brand">
+        <a href="/" class="ac-footer__logo">
+          <span class="gradient-text">{brand.name}</span>
+        </a>
+        <div class="ac-footer__brand-lower">
+          <p class="ac-footer__description">{footer.description}</p>
+          <div class="ac-footer__socials">
+            {footer.socials.map((social) => (
+              <a href={social.href} class="ac-footer__social" aria-label={social.icon} target="_blank" rel="noopener">
+                <Icon name={social.icon} size={20} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Link columns -->
+      {footer.columns.map((col) => (
+        <div class="ac-footer__column">
+          <div class="ac-footer__column-inner">
+            <h4 class="ac-footer__column-title">{col.title}</h4>
+            <ul class="ac-footer__links">
+            {col.links.map((link) => (
+              <li>
+                <a href={link.href} class="ac-footer__link">{link.label}</a>
+              </li>
+            ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="ac-footer__bottom">
+      <p>&copy; {year} {brand.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ac-footer {
+    background-color: var(--ac-bg-subtle);
+    border-top: 0.0625rem solid var(--ac-border-color);
+    padding-top: var(--ac-spacing-16);
+    padding-bottom: var(--ac-spacing-8);
+  }
+
+  .ac-footer .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-12);
+  }
+
+  .ac-footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--ac-spacing-12);
+  }
+
+  .ac-footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-4);
+  }
+
+  .ac-footer__brand-lower {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-6);
+  }
+
+  .ac-footer__logo {
+    display: inline-block;
+    font-size: var(--ac-text-xl);
+    font-weight: var(--ac-font-extrabold);
+    text-decoration: none;
+  }
+
+  .ac-footer__description {
+    font-size: var(--ac-text-sm);
+    color: var(--ac-text-muted);
+    line-height: var(--ac-leading-relaxed);
+    max-width: 18.75rem;
+  }
+
+  .ac-footer__column-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-4);
+  }
+
+  .ac-footer__socials {
+    display: flex;
+    gap: var(--ac-spacing-3);
+  }
+
+  .ac-footer__social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--ac-rounded-lg);
+    color: var(--ac-text-muted);
+    background-color: var(--ac-bg-muted);
+    transition: var(--ac-transition);
+    text-decoration: none;
+  }
+
+  .ac-footer__social:hover {
+    color: rgb(var(--ac-white));
+    background: var(--ac-gradient-primary);
+  }
+
+  .ac-footer__column-title {
+    font-size: var(--ac-text-sm);
+    font-weight: var(--ac-font-semibold);
+    color: var(--ac-text);
+  }
+
+  .ac-footer__links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-3);
+  }
+
+  .ac-footer__link {
+    font-size: var(--ac-text-sm);
+    color: var(--ac-text-muted);
+    text-decoration: none;
+    transition: var(--ac-transition-fast);
+  }
+
+  .ac-footer__link:hover {
+    color: rgb(var(--ac-primary));
+  }
+
+  .ac-footer__bottom {
+    padding-top: var(--ac-spacing-8);
+    border-top: 0.0625rem solid var(--ac-border-color);
+    text-align: center;
+    font-size: var(--ac-text-sm);
+    color: var(--ac-text-muted);
+  }
+
+  @media (max-width: 48rem) {
+    .ac-footer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--ac-spacing-8);
+    }
+
+    .ac-footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .ac-footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

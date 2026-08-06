@@ -1,0 +1,153 @@
+---
+import '../styles/globals.css'
+import { siteConfig } from '../config/site.config'
+import LandingSection from './LandingSection.astro'
+import SectionHeader from './SectionHeader.astro'
+import { revealStaggerTokens } from '../utils/reveal'
+
+const { howItWorks } = siteConfig
+---
+
+<LandingSection class="section ac-section-band--subtle">
+  <div class="ac-hiw">
+    <SectionHeader
+      badge={howItWorks.badge}
+      title={howItWorks.title}
+      description={howItWorks.description}
+    />
+
+    <div class="ac-hiw__grid">
+    {howItWorks.steps.map((step, i) => (
+      <div class:list={['ac-hiw__item', ...revealStaggerTokens(i)]}>
+          <!-- Number badge -->
+          <div class="ac-hiw__number-wrap">
+            <div class="ac-hiw__number">{step.number}</div>
+            {i < howItWorks.steps.length - 1 && (
+              <div class="ac-hiw__line" aria-hidden="true"></div>
+            )}
+          </div>
+
+          <!-- Card -->
+          <div class="ac-hiw__card">
+            <h3 class="ac-hiw__title">{step.title}</h3>
+            <p class="ac-hiw__desc">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</LandingSection>
+
+<style>
+  .ac-hiw {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-16);
+    min-width: 0;
+  }
+
+  .ac-hiw__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--ac-spacing-6);
+    row-gap: var(--ac-spacing-8);
+    min-width: 0;
+  }
+
+  .ac-hiw__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-8);
+    min-width: 0;
+  }
+
+  /* Number badge + connecting line */
+  .ac-hiw__number-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--ac-spacing-2);
+  }
+
+  .ac-hiw__number {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: var(--ac-rounded-full);
+    background: var(--ac-gradient-primary);
+    color: rgb(var(--ac-white));
+    font-size: var(--ac-text-xl);
+    font-weight: var(--ac-font-extrabold);
+    box-shadow: 0 0.25rem 1.25rem rgba(var(--ac-primary), 0.4);
+    position: relative;
+    z-index: 1;
+  }
+
+  .ac-hiw__line {
+    flex: 1;
+    height: 0.125rem;
+    background: linear-gradient(
+      90deg,
+      rgba(var(--ac-primary), 0.5) 0%,
+      rgba(var(--ac-primary), 0.1) 100%
+    );
+    border-radius: 0.125rem;
+  }
+
+  /* Card */
+  .ac-hiw__card {
+    flex: 1;
+    padding: var(--ac-spacing-6);
+    background: var(--ac-bg-subtle);
+    border: 0.125rem solid var(--ac-border-color);
+    border-radius: var(--ac-rounded-2xl);
+    transition: var(--ac-transition);
+    box-shadow: var(--ac-shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-4);
+  }
+
+  .ac-hiw__card:hover {
+    border-color: rgba(var(--ac-primary), 0.35);
+    box-shadow: 0 0.5rem 2rem rgba(var(--ac-primary), 0.1);
+    transform: translateY(-0.25rem);
+  }
+
+  .ac-hiw__title {
+    font-size: var(--ac-text-lg);
+    font-weight: var(--ac-font-bold);
+    color: var(--ac-text);
+  }
+
+  .ac-hiw__desc {
+    font-size: var(--ac-text-sm);
+    color: var(--ac-text-muted);
+    line-height: var(--ac-leading-relaxed);
+  }
+
+  @media (max-width: 48rem) {
+    .ac-hiw__grid {
+      grid-template-columns: 1fr;
+      max-width: 30rem;
+      align-self: center;
+    }
+
+    .ac-hiw__number-wrap {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ac-hiw__line {
+      display: none;
+    }
+  }
+
+  @media (min-width: 48.0625rem) and (max-width: 64rem) {
+    .ac-hiw__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

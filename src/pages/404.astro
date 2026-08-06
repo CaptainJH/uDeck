@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { siteConfig } from '../config/site.config'
+import Button from '../components/Button.astro'
+---
+
+<Layout
+  title={`Page not found — ${siteConfig.brand.name}`}
+  description="The page you are looking for does not exist or was moved."
+>
+  <section class="ac-not-found">
+    <p class="ac-not-found__eyebrow">404</p>
+    <h1 class="ac-not-found__title">This page is off the map</h1>
+    <p class="ac-not-found__text">
+      Check the URL or head back to the homepage to keep exploring {siteConfig.brand.name}.
+    </p>
+    <Button href="/" label="Back to home" variant="primary" icon="arrow-right" />
+  </section>
+</Layout>
+
+<style>
+  .ac-not-found {
+    max-width: 36rem;
+    margin: 0 auto;
+    padding: var(--ac-spacing-16) var(--ac-container-padding) var(--ac-spacing-24);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ac-spacing-6);
+  }
+
+  .ac-not-found__eyebrow {
+    font-size: var(--ac-text-sm);
+    font-weight: var(--ac-font-bold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgb(var(--ac-primary));
+    margin: 0;
+  }
+
+  .ac-not-found__title {
+    margin: 0;
+    font-size: var(--ac-text-4xl);
+    font-weight: var(--ac-font-extrabold);
+    line-height: var(--ac-leading-tight);
+    color: var(--ac-text);
+  }
+
+  .ac-not-found__text {
+    margin: 0;
+    font-size: var(--ac-text-lg);
+    color: var(--ac-text-muted);
+    line-height: var(--ac-leading-relaxed);
+  }
+</style>

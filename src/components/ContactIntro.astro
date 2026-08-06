@@ -1,0 +1,131 @@
+---
+import '../styles/globals.css'
+import Badge from './Badge.astro'
+import Icon from './Icon.astro'
+
+interface Channel {
+  icon: string
+  label: string
+  href: string
+  value: string
+}
+
+interface Props {
+  badge?: string | null
+  title: string
+  description: string
+  channels: Channel[]
+}
+
+const { badge, title, description, channels } = Astro.props
+---
+
+<div class="ac-contact__info">
+  {badge ? <Badge label={badge} variant="primary" size="medium" /> : null}
+  <h2 class="ac-contact__title">{title}</h2>
+  <p class="ac-contact__description">{description}</p>
+
+  <div class="ac-contact__channels">
+    {
+      channels.map((channel) => (
+        <div class="ac-contact__channel">
+          <div class="ac-contact__channel-icon">
+            <Icon name={channel.icon} size={20} />
+          </div>
+          <div class="ac-contact__channel-info">
+            <span class="ac-contact__channel-label">{channel.label}</span>
+            <a href={channel.href} class="ac-contact__channel-value">
+              {channel.value}
+            </a>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .ac-contact__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--ac-spacing-6);
+  }
+
+  .ac-contact__title,
+  .ac-contact__description,
+  .ac-contact__channels {
+    width: 100%;
+  }
+
+  .ac-contact__title {
+    font-size: var(--ac-text-4xl);
+    font-weight: var(--ac-font-extrabold);
+    color: var(--ac-text);
+    line-height: var(--ac-leading-tight);
+    letter-spacing: -0.02em;
+  }
+
+  .ac-contact__description {
+    font-size: var(--ac-text-lg);
+    color: var(--ac-text-muted);
+    line-height: var(--ac-leading-relaxed);
+  }
+
+  .ac-contact__channels {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ac-spacing-5);
+    margin-top: var(--ac-spacing-4);
+  }
+
+  .ac-contact__channel {
+    display: flex;
+    align-items: center;
+    gap: var(--ac-spacing-4);
+  }
+
+  .ac-contact__channel-icon {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--ac-rounded-xl);
+    background: rgba(var(--ac-primary), 0.1);
+    color: rgb(var(--ac-primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ac-contact__channel-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .ac-contact__channel-label {
+    font-size: var(--ac-text-xs);
+    font-weight: var(--ac-font-semibold);
+    color: var(--ac-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .ac-contact__channel-value {
+    font-size: var(--ac-text-sm);
+    font-weight: var(--ac-font-medium);
+    color: var(--ac-text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .ac-contact__channel-value:hover {
+    color: rgb(var(--ac-primary));
+  }
+
+  @media (max-width: 56.25rem) {
+    .ac-contact__title {
+      font-size: var(--ac-text-3xl);
+    }
+  }
+</style>

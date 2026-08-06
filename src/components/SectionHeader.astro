@@ -1,0 +1,33 @@
+---
+import '../styles/globals.css'
+import Badge from './Badge.astro'
+
+interface Props {
+  badge?: string | null
+  title: string
+  description?: string | null
+  badgeVariant?: 'primary' | 'secondary' | 'dark' | 'light' | 'gradient'
+  badgeSize?: 'small' | 'medium'
+}
+
+const {
+  badge,
+  title,
+  description,
+  badgeVariant = 'primary',
+  badgeSize,
+} = Astro.props
+---
+
+<div class="section-header animate-fade-in-up">
+  <div class="section-header__lead">
+    {
+      badge ? (
+        <Badge label={badge} variant={badgeVariant} size={badgeSize} />
+      ) : null
+    }
+    <h2 class="section-title">{title}</h2>
+    {description ? <p class="section-description">{description}</p> : null}
+  </div>
+  <slot />
+</div>

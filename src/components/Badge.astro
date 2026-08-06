@@ -1,0 +1,83 @@
+---
+import '../styles/globals.css'
+
+interface Props {
+  label: string
+  variant?: 'primary' | 'secondary' | 'dark' | 'light' | 'gradient'
+  size?: 'small' | 'medium'
+  class?: string
+}
+
+const {
+  label,
+  variant = 'primary',
+  size = 'small',
+  class: className,
+} = Astro.props
+
+const variantClasses = {
+  primary: 'ac-badge--primary',
+  secondary: 'ac-badge--secondary',
+  dark: 'ac-badge--dark',
+  light: 'ac-badge--light',
+  gradient: 'ac-badge--gradient',
+}[variant]
+
+const sizeClasses = {
+  small: 'ac-badge--small',
+  medium: 'ac-badge--medium',
+}[size]
+---
+
+<span class:list={['ac-badge', variantClasses, sizeClasses, className]}>
+  {label}
+</span>
+
+<style>
+  .ac-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ac-font-sans);
+    font-weight: var(--ac-font-semibold);
+    border-radius: var(--ac-rounded-full);
+    line-height: 1.35;
+    white-space: nowrap;
+  }
+
+  .ac-badge--small {
+    font-size: var(--ac-text-xs);
+    padding: 0.3125rem var(--ac-spacing-3);
+  }
+
+  .ac-badge--medium {
+    font-size: var(--ac-text-sm);
+    padding: 0.375rem var(--ac-spacing-4);
+  }
+
+  .ac-badge--primary {
+    background-color: rgba(var(--ac-primary), 0.12);
+    border: 0.0625rem solid rgba(var(--ac-primary), 0.22);
+    color: rgb(var(--ac-primary));
+  }
+
+  .ac-badge--secondary {
+    background-color: rgba(var(--ac-secondary), 0.1);
+    color: rgb(var(--ac-secondary));
+  }
+
+  .ac-badge--dark {
+    background-color: rgb(var(--ac-dark));
+    color: rgb(var(--ac-white));
+  }
+
+  .ac-badge--light {
+    background-color: rgb(var(--ac-gray-100));
+    color: rgb(var(--ac-gray-700));
+  }
+
+  .ac-badge--gradient {
+    background: var(--ac-gradient-primary);
+    color: rgb(var(--ac-white));
+  }
+</style>

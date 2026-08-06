@@ -1,0 +1,53 @@
+---
+/**
+ * Icon component — dual API:
+ *
+ * 1. Library icons (from free-astro-components icon set):
+ *    <Icon icon="home" />
+ *
+ * 2. Custom inline icons (used by section components):
+ *    <Icon name="rocket" size={24} />
+ */
+import { icons } from '../data/icons.ts'
+
+interface Props {
+  icon?: string   // library icon name (from icons.ts)
+  name?: string   // custom inline icon name
+  size?: number
+  class?: string
+}
+
+const { icon, name, size = 24, class: className, ...props } = Astro.props
+
+const svgPath = icons.find((i) => i.name === (name ?? icon))?.path ?? ''
+---
+
+<svg
+  class:list={['ac-icon', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  set:html={svgPath}
+  {...props}
+/>
+
+<style>
+  .ac-icon {
+    flex-shrink: 0;
+  }
+
+  .ac-icon--pricing-check {
+    color: rgb(var(--ac-primary));
+  }
+
+  .ac-icon--testimonial-star {
+    fill: #facc15;
+    stroke: #facc15;
+    color: #facc15;
+  }
+</style>

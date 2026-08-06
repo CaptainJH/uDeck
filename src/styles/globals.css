@@ -1,0 +1,469 @@
+/* ===================================================
+   GLOBAL STYLES - Astro SaaS Starter
+   Design system with ac-* tokens
+   =================================================== */
+
+.ac-skip-link {
+  position: absolute;
+  top: -6.25rem;
+  left: var(--ac-spacing-4);
+  z-index: calc(var(--ac-z-header) + 1);
+  padding: var(--ac-spacing-3) var(--ac-spacing-4);
+  background: var(--ac-gradient-primary);
+  color: rgb(var(--ac-white));
+  border-radius: var(--ac-rounded-lg);
+  font-size: var(--ac-text-sm);
+  font-weight: var(--ac-font-semibold);
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.ac-skip-link:focus {
+  top: var(--ac-spacing-4);
+  outline: 0.125rem solid rgb(var(--ac-white));
+  outline-offset: 0.125rem;
+}
+
+:root {
+  /* Core Colors (RGB for rgba() usage) */
+  --ac-transparent: transparent;
+  --ac-current: currentColor;
+  --ac-white: 255, 255, 255;
+  --ac-primary: 99, 102, 241;
+  --ac-secondary: 139, 92, 246;
+  --ac-dark: 15, 23, 42;
+  --ac-gray-50: 248, 250, 252;
+  --ac-gray-100: 241, 245, 249;
+  --ac-gray-200: 226, 232, 240;
+  --ac-gray-300: 203, 213, 225;
+  --ac-gray-400: 148, 163, 184;
+  --ac-gray-500: 100, 116, 139;
+  --ac-gray-600: 71, 85, 105;
+  --ac-gray-700: 51, 65, 85;
+  --ac-gray-800: 30, 41, 59;
+  --ac-gray-900: 15, 23, 42;
+
+  /* Gradient */
+  --ac-gradient-primary: linear-gradient(
+    135deg,
+    rgb(var(--ac-primary)),
+    rgb(var(--ac-secondary))
+  );
+
+  /* Hover states */
+  --ac-primary-hover: rgba(var(--ac-primary), 0.9);
+  --ac-secondary-hover: rgba(var(--ac-secondary), 0.9);
+  --ac-dark-hover: rgba(var(--ac-dark), 0.9);
+  --ac-white-hover: rgba(var(--ac-white), 0.9);
+
+  /* Active states */
+  --ac-primary-active: rgb(var(--ac-primary));
+  --ac-secondary-active: rgb(var(--ac-secondary));
+  --ac-dark-active: rgb(var(--ac-dark));
+  --ac-white-active: rgb(var(--ac-white));
+
+  /* Focus states */
+  --ac-primary-focus: 0 0 0 0.1875rem rgba(var(--ac-primary), 0.3);
+
+  --ac-disabled-opacity: 0.4;
+
+  /* Outline */
+  --ac-outline-color: rgba(var(--ac-primary), 0.5);
+  --ac-outline-offset: 0.125rem;
+  --ac-outline-style: solid;
+  --ac-outline-width: 0.125rem;
+
+  /* Font */
+  --ac-font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Font size */
+  --ac-text-xs: 0.75rem;
+  --ac-text-sm: 0.875rem;
+  --ac-text-md: 1rem;
+  --ac-text-lg: 1.125rem;
+  --ac-text-xl: 1.25rem;
+  --ac-text-2xl: 1.5rem;
+  --ac-text-3xl: 1.875rem;
+  --ac-text-4xl: 2.25rem;
+  --ac-text-5xl: 3rem;
+  --ac-text-6xl: 3.75rem;
+
+  /* Font weight */
+  --ac-font-light: 300;
+  --ac-font-normal: 400;
+  --ac-font-medium: 500;
+  --ac-font-semibold: 600;
+  --ac-font-bold: 700;
+  --ac-font-extrabold: 800;
+
+  /* Line height */
+  --ac-leading-none: 1;
+  --ac-leading-tight: 1.25;
+  --ac-leading-normal: 1.5;
+  --ac-leading-relaxed: 1.75;
+
+  /* Spacing */
+  --ac-spacing-px: 0.0625rem;
+  --ac-spacing-0-5: 0.125rem;
+  --ac-spacing-1: 0.25rem;
+  --ac-spacing-1-5: 0.375rem;
+  --ac-spacing-2: 0.5rem;
+  --ac-spacing-2-5: 0.625rem;
+  --ac-spacing-3: 0.75rem;
+  --ac-spacing-3-5: 0.875rem;
+  --ac-spacing-4: 1rem;
+  --ac-spacing-5: 1.25rem;
+  --ac-spacing-6: 1.5rem;
+  --ac-spacing-7: 1.75rem;
+  --ac-spacing-8: 2rem;
+  --ac-spacing-9: 2.25rem;
+  --ac-spacing-10: 2.5rem;
+  --ac-spacing-12: 3rem;
+  --ac-spacing-14: 3.5rem;
+  --ac-spacing-16: 4rem;
+  --ac-spacing-20: 5rem;
+  --ac-spacing-24: 6rem;
+  --ac-spacing-32: 8rem;
+
+  /* Border */
+  --ac-border-0: 0;
+  --ac-border: 0.0625rem;
+  --ac-border-2: 0.125rem;
+
+  /* Border radius */
+  --ac-rounded-none: 0;
+  --ac-rounded-sm: 0.125rem;
+  --ac-rounded: 0.25rem;
+  --ac-rounded-md: 0.375rem;
+  --ac-rounded-lg: 0.5rem;
+  --ac-rounded-xl: 0.75rem;
+  --ac-rounded-2xl: 1rem;
+  --ac-rounded-3xl: 1.5rem;
+  --ac-rounded-4xl: 2rem;
+  /* Sufficiently large for pill shapes; avoids huge 9999px→rem values */
+  --ac-rounded-full: 999rem;
+
+  /* Shadow */
+  --ac-shadow-sm: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.05);
+  --ac-shadow: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0.1), 0 0.0625rem 0.125rem -0.0625rem rgba(0, 0, 0, 0.1);
+  --ac-shadow-md: 0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem -0.125rem rgba(0, 0, 0, 0.1);
+  --ac-shadow-lg: 0 0.625rem 0.9375rem -0.1875rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.375rem -0.25rem rgba(0, 0, 0, 0.1);
+  --ac-shadow-xl: 0 1.25rem 1.5625rem -0.3125rem rgba(0, 0, 0, 0.1), 0 0.5rem 0.625rem -0.375rem rgba(0, 0, 0, 0.1);
+
+  /* Transition */
+  --ac-transition: all 0.3s ease;
+  --ac-transition-fast: all 0.15s ease;
+
+  /* Z-index */
+  --ac-z-header: 100;
+  --ac-z-modal: 200;
+
+  /* Container */
+  --ac-container-max: 75rem;
+  --ac-container-padding: var(--ac-spacing-6);
+}
+
+/* ---- Theme: Light ---- */
+.light,
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --ac-bg: rgb(var(--ac-white));
+  --ac-bg-subtle: rgb(var(--ac-gray-50));
+  --ac-bg-muted: rgb(var(--ac-gray-100));
+  --ac-text: rgb(var(--ac-gray-900));
+  --ac-text-muted: rgb(var(--ac-gray-500));
+  --ac-text-subtle: rgb(var(--ac-gray-400));
+  --ac-border-color: rgb(var(--ac-gray-200));
+  --ac-card-bg: rgb(var(--ac-white));
+  --ac-card-border: rgb(var(--ac-gray-200));
+
+  --ac-color-100: var(--ac-white);
+  --ac-color-200: var(--ac-gray-100);
+  --ac-color-300: var(--ac-gray-200);
+  --ac-color-400: var(--ac-gray-300);
+  --ac-color-500: var(--ac-gray-400);
+  --ac-color-600: var(--ac-gray-500);
+  --ac-color-700: var(--ac-dark);
+
+  --ac-header-bg: rgba(var(--ac-white), 0.82);
+}
+
+/* ---- Theme: Dark ---- */
+.dark,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --ac-bg: rgb(var(--ac-gray-900));
+  --ac-bg-subtle: rgb(var(--ac-gray-800));
+  --ac-bg-muted: rgb(var(--ac-gray-700));
+  --ac-text: rgb(var(--ac-gray-100));
+  --ac-text-muted: rgb(var(--ac-gray-400));
+  --ac-text-subtle: rgb(var(--ac-gray-600));
+  --ac-border-color: rgb(var(--ac-gray-700));
+  --ac-card-bg: rgb(var(--ac-gray-800));
+  --ac-card-border: rgb(var(--ac-gray-700));
+
+  --ac-color-100: var(--ac-dark);
+  --ac-color-200: var(--ac-gray-500);
+  --ac-color-300: var(--ac-gray-400);
+  --ac-color-400: var(--ac-gray-300);
+  --ac-color-500: var(--ac-gray-200);
+  --ac-color-600: var(--ac-gray-100);
+  --ac-color-700: var(--ac-white);
+
+  --ac-header-bg: rgba(var(--ac-gray-900), 0.82);
+}
+
+/* ---- Reset ---- */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--ac-font-sans);
+  color: var(--ac-text);
+  background-color: var(--ac-bg);
+  line-height: var(--ac-leading-normal);
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---- Utility Classes ---- */
+.container {
+  width: 100%;
+  max-width: var(--ac-container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--ac-container-padding);
+  padding-right: var(--ac-container-padding);
+}
+
+.section {
+  padding-top: var(--ac-spacing-24);
+  padding-bottom: var(--ac-spacing-24);
+}
+
+/* Full-bleed surface on the whole <section> (pair with LandingSection `class` prop). */
+.ac-section-band--subtle {
+  background-color: var(--ac-bg-subtle);
+}
+
+/* Full-bleed horizontal rules on the whole <section> (e.g. logo cloud). */
+.ac-section-dividers-y {
+  border-top: 0.0625rem solid var(--ac-border-color);
+  border-bottom: 0.0625rem solid var(--ac-border-color);
+}
+
+.section .container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ac-spacing-16);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ac-spacing-8);
+}
+
+.section-header__lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ac-spacing-4);
+  width: 100%;
+}
+
+.section-title {
+  font-size: var(--ac-text-4xl);
+  font-weight: var(--ac-font-bold);
+  line-height: var(--ac-leading-tight);
+}
+
+.section-description {
+  font-size: var(--ac-text-lg);
+  color: var(--ac-text-muted);
+  line-height: var(--ac-leading-relaxed);
+}
+
+.gradient-text {
+  background: var(--ac-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Oculto hasta que .is-in-view (IntersectionObserver en Layout) */
+.animate-fade-in-up {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+
+.animate-fade-in-up.is-in-view {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease forwards;
+}
+
+/* Stagger: retardo de la animación solo al revelar */
+.delay-100.is-in-view {
+  animation-delay: 0.1s;
+}
+.delay-200.is-in-view {
+  animation-delay: 0.2s;
+}
+.delay-300.is-in-view {
+  animation-delay: 0.3s;
+}
+.delay-400.is-in-view {
+  animation-delay: 0.4s;
+}
+.delay-500.is-in-view {
+  animation-delay: 0.5s;
+}
+.delay-600.is-in-view {
+  animation-delay: 0.6s;
+}
+.delay-700.is-in-view {
+  animation-delay: 0.7s;
+}
+.delay-800.is-in-view {
+  animation-delay: 0.8s;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .animate-fade-in-up {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .animate-fade-in-up.is-in-view {
+    animation: none;
+  }
+}
+
+@media (scripting: none) {
+  .animate-fade-in-up {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Theme hooks on <html> (components avoid :global for document theme) ---- */
+html[data-theme='dark'] .ac-theme-switch-icon--light {
+  display: none;
+}
+
+html[data-theme='light'] .ac-theme-switch-icon--dark {
+  display: none;
+}
+
+[data-theme='dark'] .ac-badge.ac-badge--primary {
+  background-color: rgba(var(--ac-primary), 0.2);
+  border-color: rgba(var(--ac-primary), 0.38);
+  color: rgb(var(--ac-gray-100));
+}
+
+/*
+ * Slider: dots are created in client JS (no data-astro-cid); slides use .ac-slider__slide in markup.
+ */
+.ac-slider .ac-slider__dots .ac-slider__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--ac-rounded-full);
+  background-color: var(--ac-border-color);
+  border: none;
+  cursor: pointer;
+  transition: var(--ac-transition);
+  padding: 0;
+}
+
+.ac-slider .ac-slider__dots .ac-slider__dot--active {
+  background: var(--ac-gradient-primary);
+  width: 1.5rem;
+}
+
+.ac-slider .ac-slider__track > .ac-slider__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 48rem) {
+  .section {
+    padding-top: var(--ac-spacing-16);
+    padding-bottom: var(--ac-spacing-16);
+  }
+
+  .section-title {
+    font-size: var(--ac-text-3xl);
+  }
+
+  .section-description {
+    font-size: var(--ac-text-md);
+  }
+}
