@@ -11,7 +11,7 @@ const year = new Date().getFullYear()
     <div class="ac-footer__grid">
       <!-- Brand column -->
       <div class="ac-footer__brand">
-        <a href="/" class="ac-footer__logo">
+        <a href={import.meta.env.BASE_URL} class="ac-footer__logo">
           <img src={brand.logo} alt={brand.name} class="ac-footer__logo-img" />
         </a>
         <div class="ac-footer__brand-lower">

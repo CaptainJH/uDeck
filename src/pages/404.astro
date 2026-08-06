@@ -14,7 +14,7 @@ import Button from '../components/Button.astro'
     <p class="ac-not-found__text">
       请检查网址，或返回首页继续探索 {siteConfig.brand.name}。
     </p>
-    <Button href="/" label="返回首页" variant="primary" icon="arrow_right" />
+    <Button href={import.meta.env.BASE_URL} label="返回首页" variant="primary" icon="arrow_right" />
   </section>
 </Layout>
 

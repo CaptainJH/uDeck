@@ -25,7 +25,6 @@ const { comparison } = siteConfig
             {comparison.columns.map((col) => (
               <th class:list={['ac-comparison__th', col.highlighted && 'ac-comparison__th--highlighted']}>
                 <div class="ac-comparison__col-header">
-                  {col.highlighted && <span class="ac-comparison__col-badge">Most Popular</span>}
                   <span class="ac-comparison__col-name">{col.name}</span>
                   {col.price && <span class="ac-comparison__col-price">{col.price}</span>}
                 </div>
@@ -47,11 +46,11 @@ const { comparison } = siteConfig
                   {typeof val === 'boolean' ? (
                     val ? (
                       <span class="ac-comparison__check">
-                        <Icon name="check" size={18} />
+                        <Icon name="check" size={50} />
                       </span>
                     ) : (
                       <span class="ac-comparison__x">
-                        <Icon name="clear" size={18} />
+                        <Icon name="clear" size={48} />
                       </span>
                     )
                   ) : (
@@ -62,18 +61,6 @@ const { comparison } = siteConfig
             </tr>
           ))}
         </tbody>
-        <tfoot>
-          <tr>
-            <td class="ac-comparison__td ac-comparison__td--feature"></td>
-            {comparison.columns.map((col) => (
-              <td class:list={['ac-comparison__td ac-comparison__tfoot-cta', col.highlighted && 'ac-comparison__td--highlighted']}>
-                <a href={col.cta.href} class:list={['ac-comparison__cta-btn', col.highlighted && 'ac-comparison__cta-btn--primary']}>
-                  {col.cta.label}
-                </a>
-              </td>
-            ))}
-          </tr>
-        </tfoot>
       </table>
     </div>
   </div>
@@ -97,7 +84,7 @@ const { comparison } = siteConfig
   .ac-comparison__table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 37.5rem;
+    min-width: 48rem;
   }
 
   /* Header */
@@ -111,7 +98,7 @@ const { comparison } = siteConfig
 
   .ac-comparison__th--feature {
     text-align: left;
-    width: 35%;
+    width: 22%;
   }
 
   .ac-comparison__th--highlighted {
@@ -124,17 +111,6 @@ const { comparison } = siteConfig
     flex-direction: column;
     align-items: center;
     gap: var(--ac-spacing-2);
-  }
-
-  .ac-comparison__col-badge {
-    font-size: var(--ac-text-xs);
-    font-weight: var(--ac-font-semibold);
-    color: rgb(var(--ac-primary));
-    background: rgba(var(--ac-primary), 0.1);
-    padding: var(--ac-spacing-1) var(--ac-spacing-3);
-    border-radius: var(--ac-rounded-full);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
 
   .ac-comparison__col-name {
@@ -192,11 +168,15 @@ const { comparison } = siteConfig
 
   .ac-comparison__check {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: rgb(var(--ac-primary));
   }
 
   .ac-comparison__x {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--ac-text-muted);
     opacity: 0.4;
   }
@@ -205,44 +185,5 @@ const { comparison } = siteConfig
     font-size: var(--ac-text-sm);
     color: var(--ac-text);
     font-weight: var(--ac-font-medium);
-  }
-
-  /* Footer CTA */
-  .ac-comparison__tfoot-cta {
-    padding: var(--ac-spacing-8) var(--ac-spacing-6);
-    border-top: 0.0625rem solid var(--ac-border-color);
-  }
-
-  .ac-comparison__cta-btn {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    padding: var(--ac-spacing-3) var(--ac-spacing-6);
-    font-size: var(--ac-text-sm);
-    font-weight: var(--ac-font-semibold);
-    border-radius: var(--ac-rounded-xl);
-    border: 0.125rem solid var(--ac-border-color);
-    color: var(--ac-text);
-    text-decoration: none;
-    transition: var(--ac-transition);
-  }
-
-  .ac-comparison__cta-btn:hover {
-    border-color: rgb(var(--ac-primary));
-    color: rgb(var(--ac-primary));
-  }
-
-  .ac-comparison__cta-btn--primary {
-    background: var(--ac-gradient-primary);
-    border-color: transparent;
-    color: rgb(var(--ac-white));
-  }
-
-  .ac-comparison__cta-btn--primary:hover {
-    opacity: 0.9;
-    border-color: transparent;
-    color: rgb(var(--ac-white));
-    transform: translateY(-0.0625rem);
-    box-shadow: 0 0.25rem 1rem rgba(var(--ac-primary), 0.35);
   }
 </style>

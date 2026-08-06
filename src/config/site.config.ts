@@ -192,40 +192,45 @@ const siteConfigRaw = {
     columns: [
       {
         name: 'uDeck',
-        price: '¥18 一次性买断',
         highlighted: true,
-        cta: { label: '选择 uDeck', href: '#pricing' },
       },
       {
         name: 'AirDrop',
-        price: '免费',
         highlighted: false,
-        cta: { label: '系统内置', href: '#' },
+      },
+      {
+        name: 'WebDAV',
+        highlighted: false,
       },
       {
         name: '云盘服务',
-        price: '按月/按年订阅',
         highlighted: false,
-        cta: { label: '不适用', href: '#' },
       },
     ],
     rows: [
       {
-        feature: '收费模式',
-        tooltip: '不同方案的成本结构',
-        values: ['一次性买断', '免费', '持续订阅'],
+        feature: '无需注册 / 登录账号',
+        values: [true, false, true, false],
       },
       {
-        feature: '大文件与批量传输',
-        values: ['USB 稳定高速，拖拽即传', '容易中断或卡死', '取决于上行网速'],
+        feature: '跨 Apple ID 直连',
+        values: [true, false, true, false],
       },
       {
-        feature: '文件管理体验',
-        values: ['Finder 挂载，直接实时编辑', '主要用于接收和保存', '需要同步或下载至本地'],
+        feature: '设置成本',
+        values: [true, true, false, false],
       },
       {
-        feature: '网络与隐私安全性',
-        values: ['离线直连，文件不上传云端', '依赖无线环境', '需要上传云端服务器'],
+        feature: 'Finder 原生挂载与直接编辑',
+        values: [true, false, '—', '—'],
+      },
+      {
+        feature: 'GB 级大文件 / 批量传输',
+        values: [true, false, false, false],
+      },
+      {
+        feature: '完全脱离网络 / 离线可用',
+        values: [true, '—', false, false],
       },
     ],
   },
