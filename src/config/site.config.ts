@@ -30,7 +30,7 @@ const siteConfigRaw = {
 
   /** ---- SEO & language (@astrojs/sitemap uses seo.siteUrl) ---- */
   seo: {
-    siteUrl: 'https://your-domain.com',
+    siteUrl: 'https://captainjh.github.io/uDeck',
     defaultOgImage: '/favicon.svg',
     twitterHandle: undefined as string | undefined,
     lang: 'en',
