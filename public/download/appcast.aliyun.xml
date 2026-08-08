@@ -9,7 +9,7 @@
             <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://captainjh.github.io/uDeck/download/uDeck-build-1.dmg" length="5429006" type="application/octet-stream" sparkle:edSignature="oYXJigO5L5ClJluorfipJat8P8qG6mjPyTH8Z2KBQGAucvM8is4FuEIlE+a9BZM/kx417DfeslaIs1u2T0YYBQ=="/>
+            <enclosure url="https://www.scribepal.top/uDeck/download/uDeck-build-1.dmg" length="5429006" type="application/octet-stream" sparkle:edSignature="oYXJigO5L5ClJluorfipJat8P8qG6mjPyTH8Z2KBQGAucvM8is4FuEIlE+a9BZM/kx417DfeslaIs1u2T0YYBQ=="/>
         </item>
     </channel>
 </rss>
