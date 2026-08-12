@@ -47,7 +47,7 @@ const localizedSiteConfigs = {
   zh: {
     brand: {
       name: 'uDeck',
-      tagline: '把 iPhone 变成 Mac 的高速随身硬盘',
+      tagline: '把你的 iPhone，变成随身携带的高速移动硬盘',
       logo: '/uDeck/appstore.png',
     },
     nav: {
@@ -81,9 +81,9 @@ const localizedSiteConfigs = {
     },
     hero: {
       badge: 'iPhone ↔ Mac 高速随身硬盘',
-      title: '把 iPhone，变成 Mac 随手可及的高速随身硬盘',
+      title: '把你的 iPhone，变成随身携带的高速移动硬盘',
       description:
-        '无需云端中转，也不必受限于无线网速。插上数据线，在 iPhone 上轻点 Mount，你的 iPhone 即可作为虚拟磁盘挂载至 Mac Finder。',
+        '无需云端中转，也不必受限于无线网速。插上数据线，在 iPhone 上轻点一下，你的 iPhone 即可作为虚拟硬盘挂载至 Mac Finder。',
       primaryCta: {
         label: '在 App Store 上下载',
         href: appStoreUrl,
@@ -103,7 +103,8 @@ const localizedSiteConfigs = {
     howItWorks: {
       badge: '使用',
       title: '极简三步，即刻开启',
-      description: '无需改变习惯，像 U 盘一样使用你的 iPhone',
+      description:
+        'uDeck 是 <strong class="gradient-text"> iPhone 和 Mac 上两款互相配合的 App</strong> —— 安装完之后，即可开始使用。',
       steps: [
         {
           number: 1,
