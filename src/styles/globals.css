@@ -314,6 +314,10 @@ a {
   line-height: var(--ac-leading-relaxed);
 }
 
+.section-description strong {
+  font-weight: var(--ac-font-bold);
+}
+
 .gradient-text {
   background: var(--ac-gradient-primary);
   -webkit-background-clip: text;

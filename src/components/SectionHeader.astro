@@ -33,7 +33,7 @@ const {
           <slot name="description" />
         </p>
       ) : description ? (
-        <p class="section-description">{description}</p>
+        <p class="section-description" set:html={description} />
       ) : null
     }
   </div>

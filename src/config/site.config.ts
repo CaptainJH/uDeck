@@ -107,19 +107,22 @@ const localizedSiteConfigs = {
       steps: [
         {
           number: 1,
-          title: '连接与启动',
-          description: '使用 USB 数据线连接 iPhone 与 Mac，启动 uDeck。',
+          badge: 'iPhone App',
+          title: '安装 iPhone App',
+          description: '先在 iPhone 上安装 uDeck。',
         },
         {
           number: 2,
-          title: '一键 Mount',
-          description: '在 iPhone 端轻点 Mount，即刻建立高速数据通道。',
+          badge: 'Mac App',
+          title: '安装 Mac App',
+          description: '再在 Mac 上安装 uDeck 配套应用。',
         },
         {
           number: 3,
-          title: 'Finder 随心掌控',
-          description:
-            '点击 Open in Finder，像使用 U 盘一样开始工作。完成后点击 Unmount，即可安全断开。',
+          badge: 'Mount',
+          iconSrc: '/uDeck/externaldrive.badge.plus.svg',
+          title: '点击 Mount 开始连接',
+          description: '打开 iPhone App，点击工具栏里的 Mount 完成连接。',
         },
       ],
     },
@@ -341,23 +344,27 @@ const localizedSiteConfigs = {
     howItWorks: {
       badge: 'How It Works',
       title: 'Get started in three simple steps',
-      description: 'No workflow changes required. Use your iPhone like a USB drive.',
+      description:
+        'uDeck is <strong class="gradient-text">two apps that work together</strong> — install both to get going.',
       steps: [
         {
           number: 1,
-          title: 'Connect and launch',
-          description: 'Connect your iPhone and Mac with a USB cable, then launch uDeck.',
+          badge: 'iPhone App',
+          title: 'Install the iPhone app',
+          description: 'Download and install uDeck on your iPhone.',
         },
         {
           number: 2,
-          title: 'Tap Mount',
-          description: 'Tap Mount on your iPhone to open a fast local transfer channel instantly.',
+          badge: 'Mac App',
+          title: 'Install the Mac app',
+          description: 'Download and install the uDeck companion app on your Mac.',
         },
         {
           number: 3,
-          title: 'Work in Finder',
-          description:
-            'Open the mounted drive in Finder and work as usual. When finished, tap Unmount to disconnect safely.',
+          badge: 'Mount',
+          iconSrc: '/uDeck/externaldrive.badge.plus.svg',
+          title: 'Tap Mount to connect',
+          description: 'Open the iPhone app and tap Mount in the toolbar to start the connection.',
         },
       ],
     },
