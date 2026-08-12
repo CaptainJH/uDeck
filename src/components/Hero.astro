@@ -2,8 +2,9 @@
 import '../styles/globals.css'
 import { defaultLocale, type Locale } from '../config/locale'
 import { getSiteConfig } from '../config/site.config'
+import MacDownloadButton from './MacDownloadButton.astro'
+import AppStoreBadge from './AppStoreBadge.astro'
 import Badge from './Badge.astro'
-import Icon from './Icon.astro'
 
 interface Props {
   locale?: Locale
@@ -49,13 +50,14 @@ const titleLines = hero.title.split('\n')
 
       <div class="ac-hero__after-intro">
         <div class="ac-hero__ctas animate-fade-in-up delay-300">
-          <a href={hero.primaryCta.href} class="ac-hero__cta-primary">
-            {hero.primaryCta.label}
-            <Icon name="arrow_right" size={18} />
-          </a>
-          <a href={hero.secondaryCta.href} class="ac-hero__cta-secondary">
-            {hero.secondaryCta.label}
-          </a>
+          <div class="ac-hero__cta-item">
+            <AppStoreBadge locale={locale} href={hero.primaryCta.href} />
+            <p class="ac-hero__cta-requirement">{hero.primaryCta.systemRequirement}</p>
+          </div>
+          <div class="ac-hero__cta-item">
+            <MacDownloadButton locale={locale} href={hero.secondaryCta.href} />
+            <p class="ac-hero__cta-requirement">{hero.secondaryCta.systemRequirement}</p>
+          </div>
         </div>
 
         {hero.stats && (
@@ -173,47 +175,23 @@ const titleLines = hero.title.split('\n')
 
   .ac-hero__ctas {
     display: flex;
+    align-items: flex-start;
     gap: var(--ac-spacing-4);
   }
 
-  .ac-hero__cta-primary {
-    display: inline-flex;
+  .ac-hero__cta-item {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: var(--ac-spacing-2);
-    padding: var(--ac-spacing-3-5) var(--ac-spacing-7);
-    font-size: var(--ac-text-md);
-    font-weight: var(--ac-font-semibold);
-    color: rgb(var(--ac-white));
-    background: var(--ac-gradient-primary);
-    border-radius: var(--ac-rounded-xl);
-    text-decoration: none;
-    transition: var(--ac-transition);
   }
 
-  .ac-hero__cta-primary:hover {
-    opacity: 0.9;
-    transform: translateY(-0.125rem);
-    box-shadow: 0 0.5rem 1.5rem rgba(var(--ac-primary), 0.4);
-  }
-
-  .ac-hero__cta-secondary {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--ac-spacing-3-5) var(--ac-spacing-7);
-    font-size: var(--ac-text-md);
-    font-weight: var(--ac-font-semibold);
-    color: var(--ac-text);
-    background-color: transparent;
-    border: 0.125rem solid var(--ac-border-color);
-    border-radius: var(--ac-rounded-xl);
-    text-decoration: none;
-    transition: var(--ac-transition);
-  }
-
-  .ac-hero__cta-secondary:hover {
-    border-color: rgb(var(--ac-primary));
-    color: rgb(var(--ac-primary));
-    transform: translateY(-0.125rem);
+  .ac-hero__cta-requirement {
+    margin: 0;
+    font-size: var(--ac-text-xs);
+    color: var(--ac-text-muted);
+    line-height: var(--ac-leading-normal);
+    white-space: nowrap;
   }
 
   /* Stats */
@@ -260,12 +238,13 @@ const titleLines = hero.title.split('\n')
 
     .ac-hero__ctas {
       flex-direction: column;
+      align-items: center;
       width: 100%;
     }
 
-    .ac-hero__cta-primary,
-    .ac-hero__cta-secondary {
-      justify-content: center;
+    .ac-hero__cta-requirement {
+      white-space: normal;
+      text-align: center;
     }
 
     .ac-hero__stats {

@@ -1,0 +1,69 @@
+---
+import { appStoreBadges } from '../data/app-store-badges'
+import type { Locale } from '../config/locale'
+
+interface Props {
+  locale: Locale
+  href: string
+  class?: string
+}
+
+const { locale, href, class: className } = Astro.props
+const badge = appStoreBadges[locale]
+---
+
+<a
+  href={href}
+  class:list={['ac-app-store-badge', className]}
+  aria-label={badge.alt}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <img
+    src={encodeURI(badge.light)}
+    alt=""
+    class="ac-app-store-badge__img ac-app-store-badge__img--light"
+    width="156"
+    height="52"
+    decoding="async"
+  />
+  <img
+    src={encodeURI(badge.dark)}
+    alt=""
+    class="ac-app-store-badge__img ac-app-store-badge__img--dark"
+    width="156"
+    height="52"
+    decoding="async"
+  />
+</a>
+
+<style>
+  .ac-app-store-badge {
+    display: inline-block;
+    line-height: 0;
+    text-decoration: none;
+    transition: var(--ac-transition);
+  }
+
+  .ac-app-store-badge:hover {
+    opacity: 0.88;
+    transform: translateY(-0.125rem);
+  }
+
+  .ac-app-store-badge__img {
+    height: 3.25rem;
+    width: auto;
+  }
+
+  .ac-app-store-badge__img--dark {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .ac-app-store-badge__img--light {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .ac-app-store-badge__img--dark {
+    display: inline;
+  }
+</style>

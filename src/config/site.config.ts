@@ -7,6 +7,8 @@
  * ===================================================
  */
 
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { siteConfigSchema } from './site.config.schema'
 import { pricingConfig } from './pricing.config'
 import { defaultLocale, type Locale } from './locale'
@@ -16,6 +18,31 @@ const defaultOgImage = '/uDeck/appstore.png'
 const privacyPolicyUrl = 'https://captainjh.github.io/privacy-policy/uDeck/index.html'
 const termsUrl = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'
 const contactEmail = 'mailto:heqi.ju@outlook.com'
+// TODO: replace with the live App Store URL when the app is published
+const appStoreUrl = 'https://apps.apple.com/app/udeck/id0000000000'
+
+function getMacDownloadUrl() {
+  const appcastPath = resolve(process.cwd(), 'public/download/appcast.xml')
+  const appcastXml = readFileSync(appcastPath, 'utf8')
+  const enclosureUrl = appcastXml.match(/<enclosure[^>]+url="([^"]+)"/)?.[1]
+
+  if (!enclosureUrl) {
+    throw new Error('Missing enclosure url in public/download/appcast.xml')
+  }
+
+  const pathname = new URL(enclosureUrl).pathname
+  const downloadPath = pathname.split('/download/')[1]
+
+  if (!downloadPath) {
+    throw new Error(
+      `Unable to derive download path from enclosure url: ${enclosureUrl}`,
+    )
+  }
+
+  return `/uDeck/download/${downloadPath}`
+}
+
+const macDownloadUrl = getMacDownloadUrl()
 
 const localizedSiteConfigs = {
   zh: {
@@ -58,8 +85,16 @@ const localizedSiteConfigs = {
       title: '把 iPhone，变成 Mac 随手可及的高速随身盘',
       description:
         '无需云端中转，也不必受限于无线网速。插上数据线，在 iPhone 上轻点 Mount，你的 iPhone 即可作为原生虚拟磁盘挂载至 Mac Finder。',
-      primaryCta: { label: '免费下载', href: '#pricing' },
-      secondaryCta: { label: '了解更多', href: '#features' },
+      primaryCta: {
+        label: '在 App Store 上下载',
+        href: appStoreUrl,
+        systemRequirement: 'iOS / iPadOS 17 或更高版本',
+      },
+      secondaryCta: {
+        label: '下载 Mac 版',
+        href: macDownloadUrl,
+        systemRequirement: 'macOS 26 或更高版本',
+      },
       stats: [
         { value: 'USB', label: '极速直连' },
         { value: '100%', label: '本地隐私' },
@@ -288,8 +323,16 @@ const localizedSiteConfigs = {
       title: 'Turn your iPhone into a fast pocket drive for Mac',
       description:
         'No cloud relay. No Wi-Fi bottlenecks. Plug in a cable, tap Mount on your iPhone, and uDeck mounts your files in Mac Finder like a native virtual drive.',
-      primaryCta: { label: 'Free Download', href: '#pricing' },
-      secondaryCta: { label: 'Learn More', href: '#features' },
+      primaryCta: {
+        label: 'Download on the App Store',
+        href: appStoreUrl,
+        systemRequirement: 'iOS / iPadOS 17 or later',
+      },
+      secondaryCta: {
+        label: 'Download for Mac',
+        href: macDownloadUrl,
+        systemRequirement: 'macOS 26 or later',
+      },
       stats: [
         { value: 'USB', label: 'Direct speed' },
         { value: '100%', label: 'Local privacy' },
