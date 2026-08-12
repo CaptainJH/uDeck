@@ -9,6 +9,7 @@
 
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { appStoreUrl } from './app-urls'
 import { siteConfigSchema } from './site.config.schema'
 import { pricingConfig } from './pricing.config'
 import { defaultLocale, type Locale } from './locale'
@@ -18,8 +19,6 @@ const defaultOgImage = '/uDeck/appstore.png'
 const privacyPolicyUrl = 'https://captainjh.github.io/privacy-policy/uDeck/index.html'
 const termsUrl = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'
 const contactEmail = 'mailto:heqi.ju@outlook.com'
-// TODO: replace with the live App Store URL when the app is published
-const appStoreUrl = 'https://apps.apple.com/app/udeck/id0000000000'
 
 function getMacDownloadUrl() {
   const appcastPath = resolve(process.cwd(), 'public/download/appcast.xml')
@@ -59,7 +58,7 @@ const localizedSiteConfigs = {
         { label: '价格', href: '#pricing' },
         { label: 'FAQ', href: '#faq' },
       ],
-      cta: { label: '免费下载', href: '#pricing' },
+      cta: { label: '免费下载', href: appStoreUrl },
     },
     seo: {
       siteUrl,
@@ -263,7 +262,7 @@ const localizedSiteConfigs = {
           links: [
             { label: '功能', href: '#features', target: undefined, rel: undefined },
             { label: '价格', href: '#pricing', target: undefined, rel: undefined },
-            { label: '下载', href: '#pricing', target: undefined, rel: undefined },
+            { label: '下载', href: appStoreUrl, target: '_blank', rel: 'noopener' },
           ],
         },
         {
@@ -297,7 +296,7 @@ const localizedSiteConfigs = {
         { label: 'Pricing', href: '#pricing' },
         { label: 'FAQ', href: '#faq' },
       ],
-      cta: { label: 'Free Download', href: '#pricing' },
+      cta: { label: 'Free Download', href: appStoreUrl },
     },
     seo: {
       siteUrl,
@@ -501,7 +500,7 @@ const localizedSiteConfigs = {
           links: [
             { label: 'Features', href: '#features', target: undefined, rel: undefined },
             { label: 'Pricing', href: '#pricing', target: undefined, rel: undefined },
-            { label: 'Download', href: '#pricing', target: undefined, rel: undefined },
+            { label: 'Download', href: appStoreUrl, target: '_blank', rel: 'noopener' },
           ],
         },
         {

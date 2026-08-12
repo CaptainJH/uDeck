@@ -25,6 +25,7 @@ interface Props {
 
 const { plan, index, locale = defaultLocale } = Astro.props
 const featuredLabel = locale === 'en' ? 'Lifetime access' : '永久使用'
+const isExternalCta = plan.cta.href.startsWith('http')
 ---
 
 <div
@@ -55,6 +56,8 @@ const featuredLabel = locale === 'en' ? 'Lifetime access' : '永久使用'
     <a
       href={plan.cta.href}
       class:list={['ac-pricing__cta', plan.featured && 'ac-pricing__cta--featured']}
+      target={isExternalCta ? '_blank' : undefined}
+      rel={isExternalCta ? 'noopener noreferrer' : undefined}
     >
       {plan.cta.label}
     </a>

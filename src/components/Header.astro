@@ -10,6 +10,7 @@ import {
 import { getSiteConfig } from '../config/site.config'
 import Icon from './Icon.astro'
 import ThemeSwitch from './ThemeSwitch.astro'
+import TranslateIcon from './TranslateIcon.astro'
 
 interface Props {
   locale?: Locale
@@ -24,6 +25,7 @@ const navLinks = nav.links.map((link) => ({
   href: getLocalizedSectionHref(locale, link.href),
 }))
 const ctaHref = getLocalizedSectionHref(locale, nav.cta.href)
+const isExternalCta = nav.cta.href.startsWith('http')
 const localeLinks = localeOptions.map((option) => ({
   ...option,
   href: getLocalizedPath(option.code, '/'),
@@ -55,6 +57,7 @@ const currentLocale = localeLinks.find((link) => link.code === locale) ?? locale
           aria-expanded="false"
           aria-haspopup="true"
         >
+          <TranslateIcon height={16} />
           <span class="ac-header__locale-trigger-text">{currentLocale.shortLabel}</span>
           <Icon name="chevron_down" size={16} class="ac-header__locale-trigger-icon" />
         </button>
@@ -83,7 +86,12 @@ const currentLocale = localeLinks.find((link) => link.code === locale) ?? locale
       <div class="ac-header__theme">
         <ThemeSwitch srLabel={ui.toggleThemeLabel} />
       </div>
-      <a href={ctaHref} class="ac-header__cta">
+      <a
+        href={ctaHref}
+        class="ac-header__cta"
+        target={isExternalCta ? '_blank' : undefined}
+        rel={isExternalCta ? 'noopener noreferrer' : undefined}
+      >
         {nav.cta.label}
       </a>
 
@@ -104,7 +112,10 @@ const currentLocale = localeLinks.find((link) => link.code === locale) ?? locale
         ))}
       </div>
       <div class="ac-header__mobile-locale" aria-label={ui.localeLabel}>
-        <span class="ac-header__mobile-locale-title">{ui.localeLabel}</span>
+        <span class="ac-header__mobile-locale-title">
+          <TranslateIcon height={14} />
+          {ui.localeLabel}
+        </span>
         {localeLinks.map((link) => (
           <a
             href={link.href}
@@ -123,7 +134,12 @@ const currentLocale = localeLinks.find((link) => link.code === locale) ?? locale
       <div class="ac-header__mobile-theme">
         <ThemeSwitch srLabel={ui.toggleThemeLabel} />
       </div>
-      <a href={ctaHref} class="ac-header__mobile-cta">
+      <a
+        href={ctaHref}
+        class="ac-header__mobile-cta"
+        target={isExternalCta ? '_blank' : undefined}
+        rel={isExternalCta ? 'noopener noreferrer' : undefined}
+      >
         {nav.cta.label}
       </a>
     </nav>
@@ -310,6 +326,9 @@ const currentLocale = localeLinks.find((link) => link.code === locale) ?? locale
   }
 
   .ac-header__mobile-locale-title {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ac-spacing-2);
     font-size: var(--ac-text-xs);
     font-weight: var(--ac-font-semibold);
     color: var(--ac-text-muted);

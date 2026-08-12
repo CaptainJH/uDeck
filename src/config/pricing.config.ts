@@ -1,3 +1,5 @@
+import { appStoreUrl } from './app-urls'
+
 export interface PricingPlan {
   name: string
   description: string
@@ -39,7 +41,7 @@ export const pricingConfig: Record<string, PricingSection> = {
           '基础传输速度',
           '100% 本地隐私',
         ],
-        cta: { label: '免费下载', href: '#' },
+        cta: { label: '免费下载', href: appStoreUrl },
       },
       {
         name: 'uDeck Pro',
@@ -56,7 +58,7 @@ export const pricingConfig: Record<string, PricingSection> = {
           '终身使用',
           '无订阅费用',
         ],
-        cta: { label: '立即购买', href: '#' },
+        cta: { label: '立即购买', href: appStoreUrl },
       },
     ],
   },
@@ -80,7 +82,7 @@ export const pricingConfig: Record<string, PricingSection> = {
           'Basic transfer speed',
           '100% local privacy',
         ],
-        cta: { label: 'Free Download', href: '#' },
+        cta: { label: 'Free Download', href: appStoreUrl },
       },
       {
         name: 'uDeck Pro',
@@ -97,7 +99,7 @@ export const pricingConfig: Record<string, PricingSection> = {
           'Lifetime access',
           'No subscription fees',
         ],
-        cta: { label: 'Buy Now', href: '#' },
+        cta: { label: 'Buy Now', href: appStoreUrl },
       },
     ],
   },
