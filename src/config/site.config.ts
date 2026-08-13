@@ -92,7 +92,7 @@ const localizedSiteConfigs = {
       secondaryCta: {
         label: '下载 Mac 版',
         href: macDownloadUrl,
-        systemRequirement: 'macOS 26 或更高版本',
+        systemRequirement: 'macOS 26 或更高版本 · Apple Silicon',
       },
       stats: [
         { value: 'USB', label: '极速直连' },
@@ -334,7 +334,7 @@ const localizedSiteConfigs = {
       secondaryCta: {
         label: 'Download for Mac',
         href: macDownloadUrl,
-        systemRequirement: 'macOS 26 or later',
+        systemRequirement: 'macOS 26 or later · Apple Silicon',
       },
       stats: [
         { value: 'USB', label: 'Direct speed' },
